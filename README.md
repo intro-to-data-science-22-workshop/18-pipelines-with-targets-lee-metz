@@ -1,5 +1,4 @@
-# Working with dplyr
-
+# Establishing pipelines with targets
 
 ## Summary
 
@@ -7,11 +6,11 @@ This repository provides materials for a session that is part of the [I2DS Tools
 
 ### Session contents
 
-This session will introduce you to the modern data wrangling workflow with R and dplyr. Data wrangling is one of the core steps in the data science workflow. dplyr is a grammar of data manipulation, providing a consistent set of verbs that help you solve the most common data manipulation challenges, including the manipulation of datasets and variables. 
+This session will introduce you to XXXXXX 
 
 ### Main learning objectives
 
-The goals of this session are to (1) equip you with conceptual knowledge about the dplyr package and data wrangling workflow, (2) show you the three key verbs of the pacakge, and (3) provide you with practice material as well as some further readings.
+The goals of this session are to (1) illustrate a workflow of creating and visualizing data pipelines, (2) introduce you to the key verbs and convetions of using the pacakge, and (3) provide you with practice material as well as some further readings.
 
 
 ## Instructors
