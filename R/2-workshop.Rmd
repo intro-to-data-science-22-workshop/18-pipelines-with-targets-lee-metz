@@ -67,8 +67,6 @@ What you will learn in this workshop:
 * How to monitor data files for changes by establishing them as targets
 
 
-??* How to debug in targets ??
-
 
 ***
 ## A pipiline of functions , the targets Philosophy
