@@ -12,8 +12,8 @@ If you have not done so already, please view the slides at <https://wlandau.gith
  These functions are the essential building blocks of the `targets` workflows to come.
 
 1. `load_data()`: read the NYC-Flights data and split it into a training set and a test set.
-2. `run_model()`: define a  model type and run on training data.
-3. `get_fitted()`: get the models fitted values
+2. `run_model()`: specifis the values to run a linear model.
+3. `get_plotted()`: get the models fitted values
 3. `test_accuracy()`: get the accuracy of a fitted  model on the testing set.
 4. `test_model()`: call `run_model()` and then `test_accuracy()`.
 
@@ -28,21 +28,47 @@ Our functions will need the following R packages. Run the code chunk below to lo
 ```{r, message = FALSE}
 
 library(tidyverse)
+library(stargazer)
 
 ```
 
 
 # `load_data()`
 
-
-
 ```{r}
-load_data <- function(flights_file) {
-  read_csv(churn_file, col_types = cols()) %>%
-    initial_split(prop = 0.7) # from the rsample package
+load_data <- function(file) {
+  read_csv(file, col_types = cols())
 }
 ```
 
 Try out the function.
 
+```{r}
+# Here we are specifying for the function to go to the folder Data and load the nyc_flights file.
+data <- load_data("../Data/nyc_flights.csv")
+str(data)
+```
+
+# `run_model`()`
+
+
+```{r}
+# Specifying a function that takes 1 dependant variable, and 2 independent ones 
+run_lmodel <- function(y, x1, x2, data){
+  lm(y ~ x1, data = data)
+}
+```
+
+```{r}
+a <- run_lmodel(data$arr_delay, data$dep_delay, data = data)
+```
+
+
+
+```{r}
+plot(data$dep_delay, data$arr_delay, pch = 1, col = 'steelblue') + abline(a)
+```
+```{r}
+stargazer(a, type = "text")
+```
 
