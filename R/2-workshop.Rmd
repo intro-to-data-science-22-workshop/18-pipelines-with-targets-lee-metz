@@ -1,0 +1,234 @@
+---
+title: "Targets_Workshop"
+subtitle: "Establishing Pipilines with targets in R"
+output: 
+  html_document:
+    toc: TRUE
+    df_print: paged
+    number_sections: FALSE
+    highlight: tango
+    theme: lumen
+    toc_depth: 3
+    toc_float: true
+    css: custom.css 
+    self_contained: false
+    includes:
+      after_body: footer.html
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+options(digits=2)
+
+# save the built-in output hook
+hook_output <- knitr::knit_hooks$get("output")
+
+# set a new output hook to truncate text output
+knitr::knit_hooks$set(output = function(x, options) {
+  if (!is.null(n <- options$out.lines)) {
+    x <- xfun::split_lines(x)
+    if (length(x) > n) {
+      # truncate the output
+      x <- c(head(x, n), "....\n")
+    }
+    x <- paste(x, collapse = "\n")
+  }
+  hook_output(x, options)
+})
+
+colorise <- function(x, color) {
+  if (knitr::is_latex_output()) {
+    sprintf("\\textcolor{%s}{%s}", color, x)
+  } else if (knitr::is_html_output()) {
+    sprintf("<span style='color: %s;'>%s</span>", color,
+      x)
+  } else x
+}
+
+```
+***
+
+# Introduction
+Targets 
+
+## What you will learn and why
+Why you should use Targets:
+
+* maintain a *reproducible workflow* 
+* *save costly runtime* for tasks that are already up to date
+* *provide evidence* that output aligns with the code and data
+
+What you will learn in this workshop: 
+* How to build a pipeline of custom functions using  `tar_script()` , `tar_edit()`and `tar_target()`
+* How to visualize dependencies using `tar_visnetwork()`
+* How to run your pipeline using  `tar_make()`
+* How to  check for outdated targets using `tar_outdated()`
+* How to access targets to work with them using `tar_read()`and  `tar_load()`
+* How to monitor data files for changes by establishing them as targets
+
+
+??* How to debug in targets ??
+
+
+***
+## A pipiline of functions , the targets Philosophy
+
+A pipeline contains tasks to prepare datasets, run models, and summarize results for a business deliverable or research paper. The methods behind these tasks are user-defined R functions that live in R scripts, ideally in a folder called "R/" in the project. The tasks themselves are called “targets”, and they run the functions and return R objects. The targets package orchestrates the targets and stores the output objects to make your pipeline efficient, painless, and reproducible.
+[Source](https://github.com/ropensci/targets)
+
+
+```{r, fig.align='center', echo=F, out.width = "90%"}
+#we could include a pipeline graphic here 
+#  knitr::include_graphics("")
+```
+
+
+***
+# Setup
+
+Before we get started please lrun this chunk to load packages and delete any existing targets. 
+
+```{r, message=F, comment=F}
+pacman::p_load(kableExtra,
+               tidyverse,
+               targets,
+               nycflights13
+)
+df<-nycflights13::flights
+
+write.csv(df,"..\\Data\\nyc_flights.csv", row.names = FALSE)
+
+tar_destroy() # Start fresh.
+```
+
+***
+# Building a pipiline of custom functions
+
+
+
+
+## Functions
+
+The commands of your targets will depend on the functions from `1-functions.Rmd`. For the exercises below, they are in `R/1-functions.R`. 
+Take a quick glance at `R/functions.R` familiarize yourself with the code base. 
+
+## Start with a small pipeline.
+
+The first version of the pipeline consists of three *targets*, or steps of computation. Our first targets do the following:
+
+1. Reproducibly track the NYC flights data file.
+2. Read in the data from the CSV file.
+3. Build a simple linear model predicting delays.
+4. Analyse performance
+5. Report results
+
+
+These steps are defined as custom functions in the `1-functions.Rmd`
+
+## The `_targets.R` file
+***
+
+To instantiate our targets, we express the computation in a special configuration file called `_targets.R` which has to be at the project's root directory. 
+This file is necessary to: 
+
+1. Load any functions and global objects that the targets depend on.
+2. Set any options, including packages that the targets depend on.
+3. Declare a list of targets using `tar_target()`. The `_targets.R` script must always end with a list of target objects.
+
+You would create this file from scratch using the `tar_script()` command. 
+
+
+```{r, fig.align='center', echo=F, out.width = "90%"}
+#we could include a annotated picture of the tar_make file here
+
+#  knitr::include_graphics("")
+```
+
+
+We have prepared and initial file for you here which you will edit throughout the workshop. 
+Run the following code chunk to put our prepared  `_targets.R` file for this chapter in your working directory.
+
+
+```{r, echo = FALSE}
+file.copy("initial_targets.R", "_targets.R", overwrite = TRUE)
+```
+
+Now, open `_targets.R` in the RStudio  for editing. Exercises later in this chapter will ask you to make changes to this file. 
+
+```{r}
+library(targets)
+tar_edit()
+```
+
+
+
+# Visualizing dependencies 
+
+
+
+# Running the pipeline
+
+
+
+# Accessing Targets 
+
+
+# Checking for outdated targets
+
+
+
+
+#Questions 
+
+
+1. What is the first thing you see when you open the 
+
+2. Which is the first target that will run when you caall tar_make()?
+
+
+3. After running this line of code what will happen? if you call tar_make()?  
+
+
+
+
+
+
+# Add to the pipeline 
+
+
+# Exercises
+
+1. Add a generalized linear model and analyse its performance. 
+  a) add a run_glm target to the  `_targets.R` file 
+  b) add the results to the Report.RMD
+
+
+2. Visualize the target.
+
+
+
+3. Delete last row from the CSV file & check which targets are out dated .
+
+
+
+
+
+
+
+
+
+
+
+
+
+# Sources & Further Resources
+
+This tutorial drew heavily on the Materials provided by *Will Landau* the creator of Targets. 
+*Helpful resources:* 
+* [Targets Manual](https://books.ropensci.org/targets/)
+* [Targets Tutorial](https://github.com/wlandau/targets-tutorial)
+* [Targets Video Series](https://www.youtube.com/watch?v=pbc6NX1n01Q&list=PLvgdJdJDL-APJqHy5CXs6m4N7hUVp5rb4)
+
+
+
+

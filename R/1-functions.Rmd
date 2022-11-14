@@ -1,0 +1,48 @@
+---
+title: "Custom functions for the customer churn workflow"
+output: html_document
+---
+
+If you have not done so already, please view the slides at <https://wlandau.github.io/targets-tutorial> for an introduction to the `targets` R package.
+
+# About
+
+
+
+ These functions are the essential building blocks of the `targets` workflows to come.
+
+1. `load_data()`: read the NYC-Flights data and split it into a training set and a test set.
+2. `run_model()`: define a  model type and run on training data.
+3. `get_fitted()`: get the models fitted values
+3. `test_accuracy()`: get the accuracy of a fitted  model on the testing set.
+4. `test_model()`: call `run_model()` and then `test_accuracy()`.
+
+
+# NYC-Flights
+
+Describe Dataset here 
+# Packages
+
+Our functions will need the following R packages. Run the code chunk below to load them.
+
+```{r, message = FALSE}
+
+library(tidyverse)
+
+```
+
+
+# `load_data()`
+
+
+
+```{r}
+load_data <- function(flights_file) {
+  read_csv(churn_file, col_types = cols()) %>%
+    initial_split(prop = 0.7) # from the rsample package
+}
+```
+
+Try out the function.
+
+
