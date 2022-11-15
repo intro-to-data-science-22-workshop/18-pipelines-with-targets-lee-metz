@@ -1,0 +1,6 @@
+name|type|data|command|depend|seed|path|time|size|bytes|format|repository|iteration|parent|children|seconds|warnings|error
+flights_file|stem||33f2dd2904a08656|ef46db3751d8e999|1154360369|Data/nyc-flights.csv|t19311.8749753873s||0|file|local|vector|||||_paths_ 31mmissing files Datanycflights.csv39m
+get_data|function|2d6039203ac586f4|||||||||||||||
+mod_metrics|function|6ab80aa4b24e713e|||||||||||||||
+plot_mod|function|17c8fe109ec73529|||||||||||||||
+run_lmodel|function|64219c7eb7fce6f0|||||||||||||||

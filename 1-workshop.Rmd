@@ -93,7 +93,8 @@ Before we get started please lrun this chunk to load packages and delete any exi
 pacman::p_load(kableExtra,
                tidyverse,
                targets,
-               nycflights13
+               nycflights13,
+               stargazer
 )
 df<-nycflights13::flights
 
@@ -171,6 +172,7 @@ The `targets` package detects the relationships between targets automatically us
 `tar_visnetwork()` includes functions in the dependency graph, as well as color-coded status information.
 ```{r}
 tar_visnetwork()
+
 ```
 
 While `tar_manifest()` provides a dataframe of your targets and its meta data e.g. name , R-command that runs it or its deployment priority.
@@ -196,12 +198,18 @@ There are other functions to access the targets and work with them in R or to re
 
 `tar_read()` reads a targets return value from, its file. For dynamik files it returns their path. 
 ```{r}
-tar_read()
+tar_read(run_lm)
 ```
+`tar_read()` is useful to assign the target to a new object in case you want to work with it in R. 
+```{r}
+linear_model<-tar_read(run_lm)
+mod_metrics(linear_model)
+```
+
 
 `tar_load()` loads the return values of a given target from its storage in _targets/objects.
 ```{r}
-tar_load()
+tar_load(run_lm)
 ```
 
 
@@ -209,6 +217,7 @@ tar_load()
 # Checking for outdated targets |`tar_outdated()`
 
 `tar_outdated()` checks the dependencies and data of targets and returns a list of outdated targets. 
+If it returns 0 all our targets are up to date. 
 ```{r}
 tar_outdated()
 ```
@@ -216,6 +225,12 @@ tar_outdated()
 # Data files as targets 
 
 In the targets scrip you can also specify a file as a target. In fact that is what we did with the *NYC-Flights* data set with `format = "file"` in `tar_target()`. This way any changes to the data set should trigger the target and all targets that depend on it to become outdated. 
+`tar_read()` returns the path for these types of targets [targets with ].
+
+```{r}
+tar_read(flights_file)
+```
+
 
 #Questions 
 
