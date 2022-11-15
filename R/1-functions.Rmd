@@ -13,9 +13,8 @@ If you have not done so already, please view the slides at <https://wlandau.gith
 
 1. `load_data()`: read the NYC-Flights data and split it into a training set and a test set.
 2. `run_model()`: specifis the values to run a linear model.
-3. `get_plotted()`: get the models fitted values
-3. `test_accuracy()`: get the accuracy of a fitted  model on the testing set.
-4. `test_model()`: call `run_model()` and then `test_accuracy()`.
+3. `plot_mod()`: get the models fitted values
+4. `mod_metrics()`: get the key metrics of your linear model.
 
 
 # NYC-Flights
@@ -29,6 +28,7 @@ Our functions will need the following R packages. Run the code chunk below to lo
 
 library(tidyverse)
 library(stargazer)
+library(ggplot2)
 
 ```
 
@@ -46,29 +46,61 @@ Try out the function.
 ```{r}
 # Here we are specifying for the function to go to the folder Data and load the nyc_flights file.
 data <- load_data("../Data/nyc_flights.csv")
-str(data)
 ```
 
-# `run_model`()`
-
+# `run_model()`
 
 ```{r}
-# Specifying a function that takes 1 dependant variable, and 2 independent ones 
-run_lmodel <- function(y, x1, x2, data){
-  lm(y ~ x1, data = data)
+# Specifying a function that takes 1 dependant variable, and up to 3 independent ones 
+run_lmodel <- function(y, x1, x2, x3, data = data, n_var = 1){
+  if (n_var == 1){ # 1 independent variable
+    lm(y ~ x1, data = data)
+  }else if ( n_var == 2){ # 2 independent variables
+    lm(y ~ x1 + x2, data = data)
+  } else if(n_var == 3){ # 3 independent variables
+    lm(y ~ x1 + x2 + x3, data = data)
+  } else{ # error message
+    print("n_var not specified or out of range, valid values [1-3]")
+  }
 }
 ```
 
 ```{r}
-a <- run_lmodel(data$arr_delay, data$dep_delay, data = data)
+a <- run_lmodel(data$arr_delay, data$dep_delay, data$carrier, data$distance, data = data, n_var = 3)
+b <- run_lmodel(data$arr_delay, data$dep_delay, data = data)
 ```
 
 
+# `plot_mod()`
 
 ```{r}
-plot(data$dep_delay, data$arr_delay, pch = 1, col = 'steelblue') + abline(a)
+plot_mod <- function(x_axis, y_axis,lm = lm, c = 'red1', x_lab = "x-axis", y_lab = "y-axis"){
+  plot(x_axis, y_axis, pch = 1, col = c, xlab = x_lab, ylab = y_lab) + 
+    abline(lm)
+  }
 ```
+
+
 ```{r}
-stargazer(a, type = "text")
+plot_mod(data$dep_delay, data$arr_delay, lm = b, x_lab = "Departing Delay", y_lab = "Arriving Delay")
+```
+# `mod_metrics()`
+
+```{r}
+mod_metrics <- function(lm = lm){
+  stargazer(lm, type = "text")
+}
+plot(data$dep_delay, 
+     data$arr_delay, 
+     xlab="X axis title",
+     ylab="Y axis title")
+```
+
+```{r}
+mod_metrics(a)
+```
+
+```{r}
+lm(data$arr_delay ~ x1 + x2 + x3, data = data)
 ```
 
