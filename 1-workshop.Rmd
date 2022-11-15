@@ -58,7 +58,10 @@ Why you should use Targets:
 * *save costly runtime* for tasks that are already up to date
 * *provide evidence* that output aligns with the code and data
 
+***
+
 What you will learn in this workshop: 
+
 * How to build a pipeline of custom functions using  `tar_script()` , `tar_edit()`and `tar_target()`
 * How to visualize dependencies using `tar_visnetwork()` & `tar_manifest()`
 * How to run your pipeline using  `tar_make()`
@@ -86,7 +89,7 @@ A pipeline contains tasks to prepare datasets, run models, and summarize results
 
 Before we get started please lrun this chunk to load packages and delete any existing targets. 
 
-```{r, message=F, comment=F}
+```{r message=FALSE, comment=F}
 pacman::p_load(kableExtra,
                tidyverse,
                targets,
@@ -94,8 +97,7 @@ pacman::p_load(kableExtra,
 )
 df<-nycflights13::flights
 
-write.csv(df,"..\\Data\\nyc_flights.csv", row.names = FALSE)
-
+write.csv(df,"Data\\nyc_flights.csv", row.names = FALSE)
 tar_destroy() # Start fresh.
 ```
 
@@ -222,7 +224,9 @@ tar_edit()
 # Sources & Further Resources
 
 This tutorial drew heavily on the Materials provided by *Will Landau* the creator of Targets. 
-*Helpful resources:* 
+
+*Helpful resources:*
+
 * [Targets Manual](https://books.ropensci.org/targets/)
 * [Targets Tutorial](https://github.com/wlandau/targets-tutorial)
 * [Targets Video Series](https://www.youtube.com/watch?v=pbc6NX1n01Q&list=PLvgdJdJDL-APJqHy5CXs6m4N7hUVp5rb4)
