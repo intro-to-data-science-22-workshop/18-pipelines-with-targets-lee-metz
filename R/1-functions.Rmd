@@ -28,7 +28,6 @@ Our functions will need the following R packages. Run the code chunk below to lo
 
 library(tidyverse)
 library(stargazer)
-library(ggplot2)
 
 ```
 
@@ -100,7 +99,5 @@ plot(data$dep_delay,
 mod_metrics(a)
 ```
 
-```{r}
-lm(data$arr_delay ~ x1 + x2 + x3, data = data)
-```
+
 

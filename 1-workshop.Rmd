@@ -208,7 +208,7 @@ tar_load()
 
 # Checking for outdated targets |`tar_outdated()`
 
-`tar_outdated()` checks the dependecies and data of targets and returns a list of outdated targets. 
+`tar_outdated()` checks the dependencies and data of targets and returns a list of outdated targets. 
 ```{r}
 tar_outdated()
 ```
@@ -237,16 +237,22 @@ In the targets scrip you can also specify a file as a target. In fact that is wh
 
 # Exercises
 
-1. Add a generalized linear model and analyse its performance. 
-  a) add a run_glm target to the  `_targets.R` file 
-  b) add the results to the Report.RMD
+1. Add a plot target (we provide code )
 
 
 2. Visualize the target.
 
 
-
 3. Delete last row from the CSV file & check which targets are out dated .
+
+
+
+4. Change the plot function (Change the dot color and type of dot in the plot.) 
+
+
+5. Make a meaningless change to the Functions.RMD [delete a white space or and empty line]
+
+
 
 
 
