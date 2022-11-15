@@ -149,9 +149,11 @@ We have prepared and initial file for you here which you will edit throughout th
 Run the following code chunk to put our prepared  `_targets.R` file for this chapter in your working directory.
 
 
-```{r, echo = FALSE}
-file.copy("initial_targets.R", "_targets.R", overwrite = TRUE)
+```{r, echo = TRUE, eval = FALSE}
+file.copy("R/2-initial_targets.R", "_targets.R", overwrite = TRUE)
+
 ```
+
 
 Now, open `_targets.R` in the RStudio  for editing. Exercises later in this chapter will ask you to make changes to this file. 
 
@@ -162,21 +164,58 @@ tar_edit()
 
 
 
-# Visualizing dependencies 
+# Visualizing dependencies  |  `tar_visnetwork()` & `tar_manifest()` 
+
+The `targets` package detects the relationships between targets automatically using static code analysis.
+
+`tar_visnetwork()` includes functions in the dependency graph, as well as color-coded status information.
+```{r}
+tar_visnetwork()
+```
+
+While `tar_manifest()` provides a dataframe of your targets and its meta data e.g. name , R-command that runs it or its deployment priority.
+```{r}
+tar_manifest()
+```
 
 
 
-# Running the pipeline
+# Running the pipeline | `tar_make()`
+
+So far we have been working on Set-up ...`tar_make()` actually runs the pipeline. 
+It creates reproducible process that executes the targets in the `_targets.R` - file in the correct order (see the  dependency graph).
+
+```{r}
+tar_make()
+```
+
+
+# Accessing Targets |`tar_read()`and  `tar_load()`
+There are other functions to access the targets and work with them in R or to report them. 
+
+
+`tar_read()` reads a targets return value from, its file. For dynamik files it returns their path. 
+```{r}
+tar_read()
+```
+
+`tar_load()` loads the return values of a given target from its storage in _targets/objects.
+```{r}
+tar_load()
+```
 
 
 
-# Accessing Targets 
+# Checking for outdated targets |`tar_outdated()`
 
+`tar_outdated()` checks the dependecies and data of targets and returns a list of outdated targets. 
+```{r}
+tar_outdated()
+```
 
-# Checking for outdated targets
+# Data files as targets 
 
-
-
+In the targets scrip you can also specify a file as a target. In fact that is what we did with the *NYC-Flights* data set with `format = "file"` in `tar_target()`. This way any changes to the data set should trigger the target and all targets that depend on it to become outdated. 
 
 #Questions 
 
@@ -216,11 +255,6 @@ tar_edit()
 
 
 
-
-
-
-
-
 # Sources & Further Resources
 
 This tutorial drew heavily on the Materials provided by *Will Landau* the creator of Targets. 
@@ -232,5 +266,5 @@ This tutorial drew heavily on the Materials provided by *Will Landau* the creato
 * [Targets Video Series](https://www.youtube.com/watch?v=pbc6NX1n01Q&list=PLvgdJdJDL-APJqHy5CXs6m4N7hUVp5rb4)
 
 
-
+*Styling and Structure* of the RMD have drawn on resources produced by Tom Arendt and Lisa Oswald produced for the Intro to Data Science Labs in 2021/22.
 
