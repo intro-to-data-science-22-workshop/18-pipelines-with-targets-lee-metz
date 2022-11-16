@@ -22,11 +22,11 @@ run_lmodel <- function(y, x1, x2, x3, data = data, n_var = 1){
   }
 }
 
-### `plot_mod()` function
-plot_mod <- function(x_axis, y_axis,lm = lm, c = 'red1', x_lab = "x-axis", y_lab = "y-axis"){
-  plot(x_axis, y_axis, pch = 1, col = c, xlab = x_lab, ylab = y_lab) + 
-    abline(lm)
-  }
+# ### `plot_mod()` function
+# plot_mod <- function(x_axis, y_axis,lm = lm, c = 'red1', x_lab = "x-axis", y_lab = "y-axis"){
+#   plot(x_axis, y_axis, pch = 1, col = c, xlab = x_lab, ylab = y_lab) + 
+#     abline(lm)
+#   }
 
 ### `mod_metrics()` function
 mod_metrics <- function(lm){
