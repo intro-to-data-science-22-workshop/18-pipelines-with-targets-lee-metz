@@ -374,7 +374,7 @@ targets</li>
 </div>
 <div id="a-pipiline-of-functions-the-targets-philosophy"
 class="section level2">
-<h2>A pipiline of functions , the targets Philosophy</h2>
+<h2>A pipiline of functions , the Targets’ Philosophy</h2>
 <p>A pipeline contains tasks to prepare datasets, run models, and
 summarize results for a business deliverable or research paper. The
 methods behind these tasks are user-defined R functions that live in R
@@ -407,15 +407,15 @@ delete any existing targets.</p>
 <div id="building-a-pipiline-of-custom-functions"
 class="section level1">
 <h1>Building a pipiline of custom functions</h1>
-<div id="functions" class="section level2">
-<h2>Functions</h2>
+<div id="functions" class="section level3">
+<h3>Functions</h3>
 <p>The commands of your targets will depend on the functions from
 <code>1-functions.Rmd</code>. For the exercises below, they are in
 <code>R/1-functions.R</code>. Take a quick glance at
 <code>R/functions.R</code> familiarize yourself with the code base.</p>
 </div>
-<div id="start-with-a-small-pipeline." class="section level2">
-<h2>Start with a small pipeline.</h2>
+<div id="start-with-a-small-pipeline." class="section level3">
+<h3>Start with a small pipeline.</h3>
 <p>The first version of the pipeline consists of three <em>targets</em>,
 or steps of computation. Our first targets do the following:</p>
 <ol style="list-style-type: decimal">
@@ -428,8 +428,8 @@ or steps of computation. Our first targets do the following:</p>
 <p>These steps are defined as custom functions in the
 <code>1-functions.Rmd</code></p>
 </div>
-<div id="the-_targets.r-file" class="section level2">
-<h2>The <code>_targets.R</code> file</h2>
+<div id="the-_targets.r-file" class="section level3">
+<h3>The <code>_targets.R</code> file</h3>
 <hr />
 <p>To initiating our targets, we express the computation in a special
 configuration file called <code>_targets.R</code> which has to be at the
@@ -480,8 +480,8 @@ graph, as well as color-coded status information.</p>
 ##  Hlavac, Marek (2022). stargazer: Well-Formatted Regression and Summary Statistics Tables.
 ##  R package version 5.2.3. https://CRAN.R-project.org/package=stargazer 
 ## </code></pre>
-<div id="htmlwidget-b59454e99648abc3a8b7" style="width:672px;height:480px;" class="visNetwork html-widget"></div>
-<script type="application/json" data-for="htmlwidget-b59454e99648abc3a8b7">{"x":{"nodes":{"name":["flights_data","flights_file","metrics","plotting","run_lm","plot_mod","run_lmodel","get_data","mod_metrics"],"type":["stem","stem","stem","stem","stem","function","function","function","function"],"status":["outdated","outdated","outdated","outdated","outdated","outdated","outdated","outdated","outdated"],"seconds":[null,null,null,null,null,null,null,null,null],"bytes":[null,null,null,null,null,null,null,null,null],"branches":[null,null,null,null,null,null,null,null,null],"label":["flights_data","flights_file","metrics","plotting","run_lm","plot_mod","run_lmodel","get_data","mod_metrics"],"color":["#78B7C5","#78B7C5","#78B7C5","#78B7C5","#78B7C5","#78B7C5","#78B7C5","#78B7C5","#78B7C5"],"id":["flights_data","flights_file","metrics","plotting","run_lm","plot_mod","run_lmodel","get_data","mod_metrics"],"level":[2,1,4,4,3,1,1,1,1],"shape":["dot","dot","dot","dot","dot","triangle","triangle","triangle","triangle"]},"edges":{"from":["flights_data","plot_mod","run_lm","mod_metrics","run_lm","flights_data","run_lmodel","flights_file","get_data"],"to":["plotting","plotting","plotting","metrics","metrics","run_lm","run_lm","flights_data","flights_data"],"arrows":["to","to","to","to","to","to","to","to","to"]},"nodesToDataframe":true,"edgesToDataframe":true,"options":{"width":"100%","height":"100%","nodes":{"shape":"dot","physics":false},"manipulation":{"enabled":false},"edges":{"smooth":{"type":"cubicBezier","forceDirection":"horizontal"}},"physics":{"stabilization":false},"interaction":{"zoomSpeed":1},"layout":{"hierarchical":{"enabled":true,"direction":"LR"}}},"groups":null,"width":null,"height":null,"idselection":{"enabled":false,"style":"width: 150px; height: 26px","useLabels":true,"main":"Select by id"},"byselection":{"enabled":false,"style":"width: 150px; height: 26px","multiple":false,"hideColor":"rgba(200,200,200,0.5)","highlight":false},"main":{"text":"","style":"font-family:Georgia, Times New Roman, Times, serif;font-weight:bold;font-size:20px;text-align:center;"},"submain":null,"footer":null,"background":"rgba(0, 0, 0, 0)","highlight":{"enabled":true,"hoverNearest":false,"degree":{"from":1,"to":1},"algorithm":"hierarchical","hideColor":"rgba(200,200,200,0.5)","labelOnly":true},"collapse":{"enabled":true,"fit":false,"resetHighlight":true,"clusterOptions":null,"keepCoord":true,"labelSuffix":"(cluster)"},"legend":{"width":0.2,"useGroups":false,"position":"right","ncol":1,"stepX":100,"stepY":100,"zoom":true,"nodes":{"label":["Outdated","Stem","Function"],"color":["#78B7C5","#899DA4","#899DA4"],"shape":["dot","dot","triangle"]},"nodesToDataframe":true},"tooltipStay":300,"tooltipStyle":"position: fixed;visibility:hidden;padding: 5px;white-space: nowrap;font-family: verdana;font-size:14px;font-color:#000000;background-color: #f5f4ed;-moz-border-radius: 3px;-webkit-border-radius: 3px;border-radius: 3px;border: 1px solid #808074;box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-8ce0cff4bfd7c985fc12" style="width:672px;height:480px;" class="visNetwork html-widget"></div>
+<script type="application/json" data-for="htmlwidget-8ce0cff4bfd7c985fc12">{"x":{"nodes":{"name":["flights_data","flights_file","metrics","run_lm","plot_mod","run_lmodel","get_data","mod_metrics"],"type":["stem","stem","stem","stem","function","function","function","function"],"status":["outdated","outdated","outdated","outdated","outdated","outdated","outdated","outdated"],"seconds":[null,null,null,null,null,null,null,null],"bytes":[null,null,null,null,null,null,null,null],"branches":[null,null,null,null,null,null,null,null],"label":["flights_data","flights_file","metrics","run_lm","plot_mod","run_lmodel","get_data","mod_metrics"],"color":["#78B7C5","#78B7C5","#78B7C5","#78B7C5","#78B7C5","#78B7C5","#78B7C5","#78B7C5"],"id":["flights_data","flights_file","metrics","run_lm","plot_mod","run_lmodel","get_data","mod_metrics"],"level":[2,1,4,3,0,1,1,1],"shape":["dot","dot","dot","dot","triangle","triangle","triangle","triangle"]},"edges":{"from":["mod_metrics","run_lm","flights_data","run_lmodel","flights_file","get_data"],"to":["metrics","metrics","run_lm","run_lm","flights_data","flights_data"],"arrows":["to","to","to","to","to","to"]},"nodesToDataframe":true,"edgesToDataframe":true,"options":{"width":"100%","height":"100%","nodes":{"shape":"dot","physics":false},"manipulation":{"enabled":false},"edges":{"smooth":{"type":"cubicBezier","forceDirection":"horizontal"}},"physics":{"stabilization":false},"interaction":{"zoomSpeed":1},"layout":{"hierarchical":{"enabled":true,"direction":"LR"}}},"groups":null,"width":null,"height":null,"idselection":{"enabled":false,"style":"width: 150px; height: 26px","useLabels":true,"main":"Select by id"},"byselection":{"enabled":false,"style":"width: 150px; height: 26px","multiple":false,"hideColor":"rgba(200,200,200,0.5)","highlight":false},"main":{"text":"","style":"font-family:Georgia, Times New Roman, Times, serif;font-weight:bold;font-size:20px;text-align:center;"},"submain":null,"footer":null,"background":"rgba(0, 0, 0, 0)","highlight":{"enabled":true,"hoverNearest":false,"degree":{"from":1,"to":1},"algorithm":"hierarchical","hideColor":"rgba(200,200,200,0.5)","labelOnly":true},"collapse":{"enabled":true,"fit":false,"resetHighlight":true,"clusterOptions":null,"keepCoord":true,"labelSuffix":"(cluster)"},"legend":{"width":0.2,"useGroups":false,"position":"right","ncol":1,"stepX":100,"stepY":100,"zoom":true,"nodes":{"label":["Outdated","Stem","Function"],"color":["#78B7C5","#899DA4","#899DA4"],"shape":["dot","dot","triangle"]},"nodesToDataframe":true},"tooltipStay":300,"tooltipStyle":"position: fixed;visibility:hidden;padding: 5px;white-space: nowrap;font-family: verdana;font-size:14px;font-color:#000000;background-color: #f5f4ed;-moz-border-radius: 3px;-webkit-border-radius: 3px;border-radius: 3px;border: 1px solid #808074;box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);"},"evals":[],"jsHooks":[]}</script>
 <p>While <code>tar_manifest()</code> provides a dataframe of your
 targets and its meta data e.g. name , R-command that runs it or its
 deployment priority.</p>
@@ -502,7 +502,7 @@ deployment priority.</p>
 ## </code></pre>
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
-{"columns":[{"label":["name"],"name":[1],"type":["chr"],"align":["left"]},{"label":["command"],"name":[2],"type":["chr"],"align":["left"]}],"data":[{"1":"flights_file","2":"\"Data/nyc_flights.csv\""},{"1":"flights_data","2":"get_data(flights_file)"},{"1":"run_lm","2":"run_lmodel(flights_data$arr_delay, flights_data$dep_delay, \\n     data = flights_data, n_var = 1)"},{"1":"plotting","2":"plot_mod(flights_data$dep_delay, flights_data$arr_delay, \\n     run_lm)"},{"1":"metrics","2":"mod_metrics(run_lm)"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+{"columns":[{"label":["name"],"name":[1],"type":["chr"],"align":["left"]},{"label":["command"],"name":[2],"type":["chr"],"align":["left"]}],"data":[{"1":"flights_file","2":"\"Data/nyc_flights.csv\""},{"1":"flights_data","2":"get_data(flights_file)"},{"1":"run_lm","2":"run_lmodel(flights_data$arr_delay, flights_data$dep_delay, \\n     data = flights_data, n_var = 1)"},{"1":"metrics","2":"mod_metrics(run_lm)"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
 </div>
@@ -531,16 +531,14 @@ correct order (see the dependency graph).</p>
 ##  R package version 5.2.3. https://CRAN.R-project.org/package=stargazer 
 ## 
 ## • start target flights_file
-## • built target flights_file [0.26 seconds]
+## • built target flights_file [0.42 seconds]
 ## • start target flights_data
-## • built target flights_data [1.01 seconds]
+## • built target flights_data [1.3 seconds]
 ## • start target run_lm
-## • built target run_lm [0.23 seconds]
-## • start target plotting
-## • built target plotting [3.36 seconds]
+## • built target run_lm [0.25 seconds]
 ## • start target metrics
-## • built target metrics [12.66 seconds]
-## • end pipeline [27.36 seconds]</code></pre>
+## • built target metrics [18.72 seconds]
+## • end pipeline [34.82 seconds]</code></pre>
 </div>
 <div id="accessing-targets-tar_readand-tar_load" class="section level1">
 <h1>Accessing Targets |<code>tar_read()</code>and

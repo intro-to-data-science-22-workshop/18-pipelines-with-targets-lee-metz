@@ -1,3 +1,4 @@
+# setup
 library(targets)
 source("R/1-functions.R")
 tar_option_set(
@@ -6,18 +7,17 @@ tar_option_set(
     "tidyverse",
     "targets",
     "nycflights13",
-    "stargazer"
-    
+    "modelsummary"
   )
 )
 
+# List of targets
 list(
-  tar_target(flights_file, "Data/nyc_flights.csv", format = "file"), 
-  tar_target(flights_data, get_data(flights_file)),
-  tar_target(run_lm, run_lmodel(flights_data$arr_delay, flights_data$dep_delay, data = flights_data, n_var = 1)),
-  tar_target(metrics, mod_metrics(run_lm)),
-  #add your Target for the Plot here, dont't forget that the file has end in a list of targets seperated by a comma          
-  
+  tar_target(flights_file, "Data/nyc_flights.csv", format = "file"), # loading the data 
+  tar_target(flights_data, get_data(flights_file)), # importing it to the R environment 
+  tar_target(run_lm, run_lmodel(flights_data$arr_delay, flights_data$dep_delay, data = flights_data, n_var = 1)), # running a linear model
+  tar_target(metrics, mod_metrics(run_lm)), # calculating the metrics for the linear model
+  #add your Target for the Plot here, dont't forget that the file has end in a list of targets seperated by a comma
 )
 
 
