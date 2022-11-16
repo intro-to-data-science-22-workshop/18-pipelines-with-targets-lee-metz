@@ -1,8 +1,8 @@
 name|type|data|command|depend|seed|path|time|size|bytes|format|repository|iteration|parent|children|seconds|warnings|error
-flights_data|stem|2791a50b064562bf|01132702f3798586|d1b6c2d5ae427898|-9455667||t19312.5931744609s|a53a4712b1e94092|7242312|rds|local|vector|||0.78||
-flights_file|stem|86317d61580067c0|8f8d7c09f4b9567a|ef46db3751d8e999|1154360369|Data/nyc_flights.csv|t19312.5930438578s|38558a2a3e1ef1ee|31053763|file|local|vector|||0.55||
+flights_data|stem|2791a50b064562bf|01132702f3798586|d1b6c2d5ae427898|-9455667||t19312.6093807504s|a53a4712b1e94092|7242312|rds|local|vector|||0.77||
+flights_file|stem|86317d61580067c0|8f8d7c09f4b9567a|ef46db3751d8e999|1154360369|Data/nyc_flights.csv|t19312.6092607892s|38558a2a3e1ef1ee|31053763|file|local|vector|||0.2||
 get_data|function|2d6039203ac586f4|||||||||||||||
-metrics|stem|4c0f9c7b7d3b1244|de5deaeac0ccc034|3a43a42df222e534|1850210733||t19312.5933438071s|bd5d7237884ef5a2|443|rds|local|vector|||9.81||
+metrics|stem|4c0f9c7b7d3b1244|de5deaeac0ccc034|3a43a42df222e534|1850210733||t19312.609550507s|bd5d7237884ef5a2|443|rds|local|vector|||9.96||
 mod_metrics|function|dc6df37bd006c11c|||||||||||||||
-run_lm|stem|4565e26e3903f295|8a2ee6c4c5e67397|3e229ab1a8b8b5e0|49321853||t19312.5932274308s|2c0e55c4198fa982|15231251|rds|local|vector|||0.15||
+run_lm|stem|4565e26e3903f295|8a2ee6c4c5e67397|3e229ab1a8b8b5e0|49321853||t19312.6094344096s|2c0e55c4198fa982|15231251|rds|local|vector|||0.17||
 run_lmodel|function|64219c7eb7fce6f0|||||||||||||||
