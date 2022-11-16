@@ -136,7 +136,7 @@ These steps are defined as custom functions in the `1-functions.Rmd`
 ### The `_targets.R` file
 ***
 
-To initiating our targets, we express the computation in a special configuration file called `_targets.R` which has to be at the project's root directory. 
+To initiate our targets, we express the computation in a special configuration file called `_targets.R` which has to be at the project's root directory. 
 This file is necessary to: 
 
 1. Load any functions and global objects that the targets depend on.
@@ -255,17 +255,10 @@ tar_read(flights_file)
 
 
 3. After running this line of code what will happen? if you call tar_make()?  
-
-
-
-
-
-<<<<<<< Updated upstream
-=======
-A. `flights_data`, because the rest of the targets depend on it.
-B. ``flights_file``, because the rest of the targets depend on it.
-C. `flights_data`, because it appears first in `_targets.R`.
-D. `flights_file`, because it appears first in `_targets.R`.
+A. `flights_data`, because the rest of the targets depend on it.<br>
+B. ``flights_file``, because the rest of the targets depend on it.<br>
+C. `flights_data`, because it appears first in `_targets.R`.<br>
+D. `flights_file`, because it appears first in `_targets.R`.<br>
 
 ```{r}
 answer_1_setup("E")
@@ -275,36 +268,24 @@ Check the chunk below to see:
 ```{r}
 tar_make()
 ```
->>>>>>> Stashed changes
-
-# Add to the pipeline 
 
 
-# Exercises
-
-1. Add a plot target (we provide code )
-
-<<<<<<< Updated upstream
-=======
 #  Exercises adding to the pipeline 
 
 
-1. Add a plot target (we provide code ) and visualize your new target dependencies. 
+1. Add a plot target (we provide code) and visualize your new target dependencies. 
 
 
 ```{r eval=FALSE}
 tar_edit()
 ```
->>>>>>> Stashed changes
 
-2. Visualize the target.
+```{r}
+# write your code here
+```
 
 
-3. Delete last row from the CSV file & check which targets are out dated .
-<<<<<<< Updated upstream
-
-=======
-Remove the last row of the dataset file `data/churn.csv`.
+2. Delete last row from the CSV file & check which targets are outdated . Which targets are outdated and why
 
 ```{r, message = FALSE}
 library(tidyverse)
@@ -314,10 +295,7 @@ library(tidyverse)
   write_csv("Data/nyc_flights.csv")
 ```
 
-Run the pipeline again.
 
-
-4. Which targets are outdated? Why?
 
 A. All of them. `targets` notices it has been a while since you ran the pipeline.
 B. All of them. The data file changed, and `targets` automatically knows `Data/nyc_flights.csv` is a data file.
@@ -328,12 +306,12 @@ D. None of them, because `Data/nyc_flights.csv` is neither a target nor a functi
 answer1_outdated("E")
 ```
 
+Check using chunk below.
 ```{r}
 tar_outdated()
 ```
 
-5. Open `R/1-functions.R` and change the plot function, specifically change "c = 'red1'" argument. 
-
+3. Open `R/1-functions.R` and change the plot function, specifically change "c = 'red1'" argument. 
 
 ```{r eval=FALSE}
 file.edit('R/1-functions.R')
@@ -342,9 +320,6 @@ file.edit('R/1-functions.R')
 
 Rerun the pipeline.
 
-<<<<<<< Updated upstream
-4. Change the plot function (Change the dot color and type of dot in the plot.) 
-=======
 ```{r }
 tar_make()
 ```
@@ -356,10 +331,6 @@ A. None. No target directly calls `plotting`.
 B. None. The model definition did not change much.
 C. `run_lm`, as plotting depends on it .
 D. Only `plotting` as no other targets depend on it.
-
-<<<<<<< Updated upstream
-
-=======
 
 
 6. Make a meaningless change to the modeling in the Functions.RMD [delete a white space or add an empty line]
@@ -380,11 +351,11 @@ answer1_trivial("E")
 ```
 
 
-
+Check using chunk below.
 ```{r}
 tar_outdated()
 ```
->>>>>>> Stashed changes
+
 
 
 
