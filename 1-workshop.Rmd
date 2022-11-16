@@ -72,7 +72,7 @@ What you will learn in this workshop:
 
 
 ***
-## A pipiline of functions , the targets Philosophy
+## A pipiline of functions , the Targets' Philosophy
 
 A pipeline contains tasks to prepare datasets, run models, and summarize results for a business deliverable or research paper. The methods behind these tasks are user-defined R functions that live in R scripts, ideally in a folder called "R/" in the project. The tasks themselves are called “targets”, and they run the functions and return R objects. The targets package orchestrates the targets and stores the output objects to make your pipeline efficient, painless, and reproducible.
 [Source](https://github.com/ropensci/targets)
@@ -100,7 +100,7 @@ df<-nycflights13::flights
 
 source("R/1-functions.R")
 write.csv(df,"Data\\nyc_flights.csv", row.names = FALSE)
-tar_destroy() # Start fresh.
+tar_destroy() # Start fresh, write 1 on the prompt in your console 
 ```
 
 ***
@@ -109,12 +109,12 @@ tar_destroy() # Start fresh.
 
 
 
-## Functions
+### Functions
 
 The commands of your targets will depend on the functions from `1-functions.Rmd`. For the exercises below, they are in `R/1-functions.R`. 
 Take a quick glance at `R/functions.R` familiarize yourself with the code base. 
 
-## Start with a small pipeline.
+### Start with a small pipeline.
 
 The first version of the pipeline consists of three *targets*, or steps of computation. Our first targets do the following:
 
@@ -127,7 +127,7 @@ The first version of the pipeline consists of three *targets*, or steps of compu
 
 These steps are defined as custom functions in the `1-functions.Rmd`
 
-## The `_targets.R` file
+### The `_targets.R` file
 ***
 
 To initiating our targets, we express the computation in a special configuration file called `_targets.R` which has to be at the project's root directory. 
@@ -193,8 +193,8 @@ It creates reproducible process that executes the targets in the `_targets.R` - 
 tar_make()
 ```
 
-
 ## Accessing Targets |`tar_read()`and  `tar_load()`
+
 There are other functions to access the targets and work with them in R or to report them. 
 
 
