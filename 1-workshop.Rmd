@@ -10,10 +10,10 @@ output:
     theme: lumen
     toc_depth: 3
     toc_float: true
-    css: custom.css 
+    css: "3-custom.css" 
     self_contained: false
     includes:
-      after_body: footer.html
+      after_body: "2-footer.html"
 ---
 
 ```{r setup,  include = FALSE}
@@ -73,13 +73,12 @@ What you will learn in this workshop:
 ***
 ### A pipeline of functions, the Targets' Philosophy
 
-A pipeline contains tasks to prepare datasets, run models, and summarize results for a business deliverable or research paper. The methods behind these tasks are user-defined R functions that live in R scripts, ideally in a folder called "R/" in the project. The tasks themselves are called “targets”, and they run the functions and return R objects. The targets package orchestrates the targets and stores the output objects to make your pipeline efficient, painless, and reproducible.
-[Source](https://github.com/ropensci/targets)
+A pipeline contains tasks to prepare datasets, run models, and summarize results for a business deliverable or research paper. The methods behind these tasks are user-defined R functions that live in R scripts, ideally in a folder called "3-R/" in the project. The tasks themselves are called “targets”, and they run the functions and return R objects. The targets package orchestrates the targets and stores the output objects to make your pipeline efficient, painless, and reproducible.
+-[Source](https://github.com/ropensci/targets)
 
 
 ```{r, fig.align='center', echo=F, out.width = "90%"}
-#we could include a pipeline graphic here 
-#  knitr::include_graphics("")
+  knitr::include_graphics("1-workshop_files\\pics\\pipeline.jpg")
 ```
 
 
@@ -98,13 +97,13 @@ pacman::p_load(kableExtra,
 df<-nycflights13::flights
 
 #loading custom functions for the analysis
-source("R/1-functions.R")
+source("3-R/1-functions.R")
 
 #loading scripts necessary for the quiz in workshop
-source("R/4-answers_to_questions.R")
-source("R/5-quiz.R")
+source("3-R/4-answers_to_questions.R")
+source("3-R/5-quiz.R")
 #getting our data to the file
-write.csv(df,"Data\\nyc_flights.csv", row.names = FALSE)
+write.csv(df,"2-data\\nyc_flights.csv", row.names = FALSE)
 
 tar_destroy() # Start fresh, write 1 on the prompt in your console 
 ```
@@ -117,8 +116,8 @@ tar_destroy() # Start fresh, write 1 on the prompt in your console
 
 ### Functions
 
-The commands of your targets will depend on the functions from `1-functions.Rmd`. For the exercises below, they are in `R/1-functions.R`. 
-Take a quick glance at `R/functions.R` familiarize yourself with the code base. 
+The commands of your targets will depend on the functions from `1-functions.Rmd`. For the exercises below, they are in `3-R/1-functions.R`. 
+Take a quick glance at `3-R/functions.R` familiarize yourself with the code base. 
 
 ### Start with a small pipeline.
 
@@ -158,7 +157,7 @@ Run the following code chunk to put our prepared  `_targets.R` file for this cha
 
 
 ```{r, echo = TRUE, eval = FALSE}
-file.copy("R/2-initial_targets.R", "_targets.R", overwrite = TRUE)
+file.copy("3-R/2-initial_targets.R", "_targets.R", overwrite = TRUE)
 
 ```
 
@@ -166,7 +165,6 @@ file.copy("R/2-initial_targets.R", "_targets.R", overwrite = TRUE)
 Now, open `_targets.R` in the RStudio  for editing. Exercises later in this chapter will ask you to make changes to this file. 
 
 ```{r}
-library(targets)
 tar_edit()
 ```
 
@@ -177,7 +175,7 @@ tar_edit()
 The `targets` package detects the relationships between targets automatically using static code analysis.
 
 `tar_visnetwork()` includes functions in the dependency graph, as well as color-coded status information.
-```{r, message = FALSE, warning=FALSE, error = FALSE}
+```{r}
 tar_visnetwork()
 
 ```
@@ -247,21 +245,31 @@ tar_read(flights_file)
 
 
 #Questions 
-
-
-1. What is the first thing you see when you open the 
-
-2. Which is the first target that will run when you caall tar_make()?
-
-
-3. After running this line of code what will happen? if you call tar_make()?  
-A. `flights_data`, because the rest of the targets depend on it.<br>
-B. ``flights_file``, because the rest of the targets depend on it.<br>
-C. `flights_data`, because it appears first in `_targets.R`.<br>
-D. `flights_file`, because it appears first in `_targets.R`.<br>
+ **1. What do you see when you open `_targets.R` using the chunk below? **
 
 ```{r}
-answer_1_setup("E")
+tar_edit()
+```
+
+
+**A.** A call to `source("3-changes/functions.R")` to load our custom functions. <br>
+**B.** A call to `tar_option_set()` to declare the packages the targets need when they run.<br>
+**C.** The full pipeline from `2-pipelines.Rmd` at the very bottom of the file.<br>
+**D.** All the above.<br>
+
+```{r}
+answer_1_setup("E") # Give your own answer here.
+```
+
+**2. Which target runs first when running the pipeline with `tar_make()`.Why?**
+
+**A.** `flights_data`, because the rest of the targets depend on it. <br>
+**B.** `flights_file`, because the rest of the targets depend on it.<br>
+**C.** `flights_data`, because it appears first in `_targets.R`.<br> 
+**D.** `flights_file`, because it appears first in `_targets.R`.
+ 
+```{r}
+answer1_first("E") # Give your own answer here.
 ```
 
 Check the chunk below to see:
@@ -270,10 +278,23 @@ tar_make()
 ```
 
 
+**3. If you load the `run_lm` target from the `_targets/` data store using the `tar_load()` function and print it. What do you observe?**
+
+**A.** A function. <br>
+**B.** A fitted lm model. <br>
+**C.** A one-row data frame. <br>
+**D.** A plot  objects. <br>
+
+```{r}
+answer1_inspect("E")
+```
+
+
+
 #  Exercises: adding to the pipeline 
 
 
-1. Add a plot target and visualize your new target dependencies. 
+**1. Add a plot target and visualize your new target dependencies. **
 
 
 ```{r eval=FALSE}
@@ -285,22 +306,22 @@ tar_edit()
 ```
 
 
-2. Delete last row from the CSV file & check which targets are outdated and why.
+**2.Delete last row from the CSV file & check which targets are outdated and why.**
 
 ```{r, message = FALSE}
 library(tidyverse)
-"Data/nyc_flights.csv" %>%
+"2-data/nyc_flights.csv" %>%
   read_csv(col_types = cols()) %>%
   head(n = nrow(.) - 1) %>%
-  write_csv("Data/nyc_flights.csv")
+  write_csv("2-data/nyc_flights.csv")
 ```
 
 
 
-A. All of them. `targets` notices it has been a while since you ran the pipeline.<br>
-B. All of them. The data file changed, and `targets` automatically knows `Data/nyc_flights.csv` is a data file.<br>
-C. All of them. The data file changed, and the pipeline is configured to automatically track `data/churn.csv`. The pipeline tracks the data file because the `churn_file` target returns the value `"Data/nyc_flights.csv"` and the call to `tar_target()` has `format = "file"`. <br>
-D. None of them, because `Data/nyc_flights.csv` is neither a target nor a function in the global environment. <br>
+**A.** All of them. `targets` notices it has been a while since you ran the pipeline.<br>
+**B.** All of them. The data file changed, and `targets` automatically knows `Data/nyc_flights.csv` is a data file.<br>
+**C.** All of them. The data file changed, and the pipeline is configured to automatically track `data/churn.csv`. The pipeline tracks the data file because the `churn_file` target returns the value `"Data/nyc_flights.csv"` and the call to `tar_target()` has `format = "file"`. <br>
+**D.** None of them, because `Data/nyc_flights.csv` is neither a target nor a function in the global environment. <br>
 
 ```{r}
 answer1_outdated("E")
@@ -311,38 +332,38 @@ Check using chunk below.
 tar_outdated()
 ```
 
-3. Open `R/1-functions.R` and change the plot function, specifically change "c = 'red1'" argument. 
+**3. Open `R/1-functions.R` and change the plot function, specifically change "c = 'red1'" argument. **
 
 ```{r eval=FALSE}
-file.edit('R/1-functions.R')
+file.edit('3-R/1-functions.R')
 ```
 
-Rerun the pipeline.
+**Rerun the pipeline.**
 
 ```{r }
 tar_make()
 ```
 
-Which targets ran? Why?
+**Which targets ran? Why?**
 
-A. None. No target directly calls `plotting`. <br>
-B. None. The model definition did not change much. <br>
-C. `run_lm`, as plotting depends on it. <br>
-D. Only `plotting` as no other targets depend on it. <br>
+**A.** None. No target directly calls `plotting`. <br>
+**B.** None. The model definition did not change much. <br>
+**C.** `run_lm`, as plotting depends on it. <br>
+**D.** Only `plotting` as no other targets depend on it. <br>
 
 
-6. Make a meaningless change to the modeling in the Functions.RMD [eg. delete a white space or add an empty line]
+**6. Make a meaningless change to the modeling in the Functions.RMD [eg. delete a white space or add an empty line]**
 
 ```{r eval=FALSE}
-file.edit('R/1-functions.R')
+file.edit('3-R/1-functions.R')
 ```
 
-Which targets will re-run and  Why?
+**Which targets will re-run and  Why?**
 
-A. `run_lm`and `plotting`,as the `run_lmodel()` function changed, which affects all these targets. <br>
-B. None. `tar_make()` ignores trivial changes like comments and white space. <br>
-C. None. `tar_make()` ignores all changes to functions.<br>
-D. None. No target directly calls `run_model()`.<br>
+**A.** `run_lm`and `plotting`,as the `run_lmodel()` function changed, which affects all these targets. <br>
+**B.** None. `tar_make()` ignores trivial changes like comments and white space. <br>
+**C.** None. `tar_make()` ignores all changes to functions.<br>
+**D.** None. No target directly calls `run_model()`.<br>
 
 ```{r}
 answer1_trivial("E")
@@ -353,13 +374,6 @@ Check using chunk below.
 ```{r}
 tar_outdated()
 ```
-
-
-
-
-
-
-
 
 
 # Sources & Further Resources
