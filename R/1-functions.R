@@ -1,7 +1,7 @@
 # libraries needed for the functions to run 
-library(tidyverse)
-library(stargazer)
-library(modelsummary)
+suppressWarnings(library(tidyverse))
+suppressWarnings(library(stargazer))
+suppressWarnings(library(modelsummary))
 
 ### `get_data()` function 
 get_data <- function(file) {
