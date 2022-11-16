@@ -340,6 +340,33 @@ div.tocify {
 </div>
 
 
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span>opts_chunk<span class="sc">$</span><span class="fu">set</span>(<span class="at">echo =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">digits=</span><span class="dv">2</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># save the built-in output hook</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>hook_output <span class="ot">&lt;-</span> knitr<span class="sc">::</span>knit_hooks<span class="sc">$</span><span class="fu">get</span>(<span class="st">&quot;output&quot;</span>)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># set a new output hook to truncate text output</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span>knit_hooks<span class="sc">$</span><span class="fu">set</span>(<span class="at">output =</span> <span class="cf">function</span>(x, options) {</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="sc">!</span><span class="fu">is.null</span>(n <span class="ot">&lt;-</span> options<span class="sc">$</span>out.lines)) {</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    x <span class="ot">&lt;-</span> xfun<span class="sc">::</span><span class="fu">split_lines</span>(x)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (<span class="fu">length</span>(x) <span class="sc">&gt;</span> n) {</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>      <span class="co"># truncate the output</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>      x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">head</span>(x, n), <span class="st">&quot;....</span><span class="sc">\n</span><span class="st">&quot;</span>)</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>    x <span class="ot">&lt;-</span> <span class="fu">paste</span>(x, <span class="at">collapse =</span> <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">hook_output</span>(x, options)</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>colorise <span class="ot">&lt;-</span> <span class="cf">function</span>(x, color) {</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (knitr<span class="sc">::</span><span class="fu">is_latex_output</span>()) {</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>    <span class="fu">sprintf</span>(<span class="st">&quot;</span><span class="sc">\\</span><span class="st">textcolor{%s}{%s}&quot;</span>, color, x)</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> <span class="cf">if</span> (knitr<span class="sc">::</span><span class="fu">is_html_output</span>()) {</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>    <span class="fu">sprintf</span>(<span class="st">&quot;&lt;span style=&#39;color: %s;&#39;&gt;%s&lt;/span&gt;&quot;</span>, color,</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>      x)</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> x</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 <hr />
 <div id="introduction" class="section level1">
 <h1>Introduction</h1>
@@ -374,7 +401,7 @@ targets</li>
 </div>
 <div id="a-pipiline-of-functions-the-targets-philosophy"
 class="section level2">
-<h2>A pipiline of functions , the targets Philosophy</h2>
+<h2>A pipiline of functions , the Targets’ Philosophy</h2>
 <p>A pipeline contains tasks to prepare datasets, run models, and
 summarize results for a business deliverable or research paper. The
 methods behind these tasks are user-defined R functions that live in R
@@ -391,37 +418,38 @@ href="https://github.com/ropensci/targets">Source</a></p>
 <h1>Setup</h1>
 <p>Before we get started please lrun this chunk to load packages and
 delete any existing targets.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(kableExtra,</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>               tidyverse,</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>               targets,</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>               nycflights13,</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>               modelsummary</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>df<span class="ot">&lt;-</span>nycflights13<span class="sc">::</span>flights</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co">#loading custom functions for the analysis</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">&quot;R/1-functions.R&quot;</span>)</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="co">#loading scripts necessary for the quiz in workshop</span></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">&quot;R/4-answers_to_questions.R&quot;</span>)</span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">&quot;R/5-quiz.R&quot;</span>)</span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="co">#getting our data to the file</span></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(df,<span class="st">&quot;Data</span><span class="sc">\\</span><span class="st">nyc_flights.csv&quot;</span>, <span class="at">row.names =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="fu">tar_destroy</span>() <span class="co"># Start fresh.</span></span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(kableExtra,</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>               tidyverse,</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>               targets,</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>               nycflights13,</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>               modelsummary</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>df<span class="ot">&lt;-</span>nycflights13<span class="sc">::</span>flights</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="co">#loading custom functions for the analysis</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">&quot;R/1-functions.R&quot;</span>)</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="co">#loading scripts necessary for the quiz in workshop</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">&quot;R/4-answers_to_questions.R&quot;</span>)</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">&quot;R/5-quiz.R&quot;</span>)</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="co">#getting our data to the file</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(df,<span class="st">&quot;Data</span><span class="sc">\\</span><span class="st">nyc_flights.csv&quot;</span>, <span class="at">row.names =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a><span class="fu">tar_destroy</span>() <span class="co"># Start fresh, write 1 on the prompt in your console </span></span></code></pre></div>
 <hr />
 </div>
-<div id="information" class="section level1">
-<h1>Information</h1>
-<div id="functions" class="section level2">
-<h2>Functions</h2>
+<div id="building-a-pipiline-of-custom-functions"
+class="section level1">
+<h1>Building a pipiline of custom functions</h1>
+<div id="functions" class="section level3">
+<h3>Functions</h3>
 <p>The commands of your targets will depend on the functions from
 <code>1-functions.Rmd</code>. For the exercises below, they are in
 <code>R/1-functions.R</code>. Take a quick glance at
 <code>R/functions.R</code> familiarize yourself with the code base.</p>
 </div>
-<div id="start-with-a-small-pipeline." class="section level2">
-<h2>Start with a small pipeline.</h2>
+<div id="start-with-a-small-pipeline." class="section level3">
+<h3>Start with a small pipeline.</h3>
 <p>The first version of the pipeline consists of three <em>targets</em>,
 or steps of computation. Our first targets do the following:</p>
 <ol style="list-style-type: decimal">
@@ -434,8 +462,8 @@ or steps of computation. Our first targets do the following:</p>
 <p>These steps are defined as custom functions in the
 <code>1-functions.Rmd</code></p>
 </div>
-<div id="the-_targets.r-file" class="section level2">
-<h2>The <code>_targets.R</code> file</h2>
+<div id="the-_targets.r-file" class="section level3">
+<h3>The <code>_targets.R</code> file</h3>
 <hr />
 <p>To initiating our targets, we express the computation in a special
 configuration file called <code>_targets.R</code> which has to be at the
@@ -454,23 +482,24 @@ objects.</li>
 throughout the workshop. Run the following code chunk to put our
 prepared <code>_targets.R</code> file for this chapter in your working
 directory.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">file.copy</span>(<span class="st">&quot;R/2-initial_targets.R&quot;</span>, <span class="st">&quot;_targets.R&quot;</span>, <span class="at">overwrite =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">file.copy</span>(<span class="st">&quot;R/2-initial_targets.R&quot;</span>, <span class="st">&quot;_targets.R&quot;</span>, <span class="at">overwrite =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <p>Now, open <code>_targets.R</code> in the RStudio for editing.
 Exercises later in this chapter will ask you to make changes to this
 file.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(targets)</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tar_edit</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(targets)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tar_edit</span>()</span></code></pre></div>
 <pre><code>## • Edit &#39;_targets.R&#39;</code></pre>
 </div>
+</div>
 <div id="visualizing-dependencies-tar_visnetwork-tar_manifest"
-class="section level2">
-<h2>Visualizing dependencies | <code>tar_visnetwork()</code> &amp;
-<code>tar_manifest()</code></h2>
+class="section level1">
+<h1>Visualizing dependencies | <code>tar_visnetwork()</code> &amp;
+<code>tar_manifest()</code></h1>
 <p>The <code>targets</code> package detects the relationships between
 targets automatically using static code analysis.</p>
 <p><code>tar_visnetwork()</code> includes functions in the dependency
 graph, as well as color-coded status information.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tar_visnetwork</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tar_visnetwork</span>()</span></code></pre></div>
 <pre><code>## ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.2 ──
 ## ✔ ggplot2 3.3.6      ✔ purrr   0.3.5 
 ## ✔ tibble  3.1.8      ✔ dplyr   1.0.10
@@ -490,12 +519,12 @@ graph, as well as color-coded status information.</p>
 ## 2: Paket &#39;tidyverse&#39; wurde unter R Version 4.2.2 erstellt 
 ## 3: Paket &#39;purrr&#39; wurde unter R Version 4.2.2 erstellt 
 ## 4: Paket &#39;modelsummary&#39; wurde unter R Version 4.2.2 erstellt </code></pre>
-<div id="htmlwidget-5678930e5c48fef825e0" style="width:672px;height:480px;" class="visNetwork html-widget"></div>
-<script type="application/json" data-for="htmlwidget-5678930e5c48fef825e0">{"x":{"nodes":{"name":["flights_data","flights_file","metrics","run_lm","run_lmodel","get_data","mod_metrics"],"type":["stem","stem","stem","stem","function","function","function"],"status":["outdated","outdated","outdated","outdated","outdated","outdated","outdated"],"seconds":[null,null,null,null,null,null,null],"bytes":[null,null,null,null,null,null,null],"branches":[null,null,null,null,null,null,null],"label":["flights_data","flights_file","metrics","run_lm","run_lmodel","get_data","mod_metrics"],"color":["#78B7C5","#78B7C5","#78B7C5","#78B7C5","#78B7C5","#78B7C5","#78B7C5"],"id":["flights_data","flights_file","metrics","run_lm","run_lmodel","get_data","mod_metrics"],"level":[2,1,4,3,1,1,1],"shape":["dot","dot","dot","dot","triangle","triangle","triangle"]},"edges":{"from":["mod_metrics","run_lm","flights_data","run_lmodel","flights_file","get_data"],"to":["metrics","metrics","run_lm","run_lm","flights_data","flights_data"],"arrows":["to","to","to","to","to","to"]},"nodesToDataframe":true,"edgesToDataframe":true,"options":{"width":"100%","height":"100%","nodes":{"shape":"dot","physics":false},"manipulation":{"enabled":false},"edges":{"smooth":{"type":"cubicBezier","forceDirection":"horizontal"}},"physics":{"stabilization":false},"interaction":{"zoomSpeed":1},"layout":{"hierarchical":{"enabled":true,"direction":"LR"}}},"groups":null,"width":null,"height":null,"idselection":{"enabled":false,"style":"width: 150px; height: 26px","useLabels":true,"main":"Select by id"},"byselection":{"enabled":false,"style":"width: 150px; height: 26px","multiple":false,"hideColor":"rgba(200,200,200,0.5)","highlight":false},"main":{"text":"","style":"font-family:Georgia, Times New Roman, Times, serif;font-weight:bold;font-size:20px;text-align:center;"},"submain":null,"footer":null,"background":"rgba(0, 0, 0, 0)","highlight":{"enabled":true,"hoverNearest":false,"degree":{"from":1,"to":1},"algorithm":"hierarchical","hideColor":"rgba(200,200,200,0.5)","labelOnly":true},"collapse":{"enabled":true,"fit":false,"resetHighlight":true,"clusterOptions":null,"keepCoord":true,"labelSuffix":"(cluster)"},"legend":{"width":0.2,"useGroups":false,"position":"right","ncol":1,"stepX":100,"stepY":100,"zoom":true,"nodes":{"label":["Outdated","Stem","Function"],"color":["#78B7C5","#899DA4","#899DA4"],"shape":["dot","dot","triangle"]},"nodesToDataframe":true},"tooltipStay":300,"tooltipStyle":"position: fixed;visibility:hidden;padding: 5px;white-space: nowrap;font-family: verdana;font-size:14px;font-color:#000000;background-color: #f5f4ed;-moz-border-radius: 3px;-webkit-border-radius: 3px;border-radius: 3px;border: 1px solid #808074;box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-96c96bcf0257ca1578e7" style="width:672px;height:480px;" class="visNetwork html-widget"></div>
+<script type="application/json" data-for="htmlwidget-96c96bcf0257ca1578e7">{"x":{"nodes":{"name":["flights_data","flights_file","metrics","run_lm","run_lmodel","get_data","mod_metrics"],"type":["stem","stem","stem","stem","function","function","function"],"status":["outdated","outdated","outdated","outdated","outdated","outdated","outdated"],"seconds":[null,null,null,null,null,null,null],"bytes":[null,null,null,null,null,null,null],"branches":[null,null,null,null,null,null,null],"label":["flights_data","flights_file","metrics","run_lm","run_lmodel","get_data","mod_metrics"],"color":["#78B7C5","#78B7C5","#78B7C5","#78B7C5","#78B7C5","#78B7C5","#78B7C5"],"id":["flights_data","flights_file","metrics","run_lm","run_lmodel","get_data","mod_metrics"],"level":[2,1,4,3,1,1,1],"shape":["dot","dot","dot","dot","triangle","triangle","triangle"]},"edges":{"from":["mod_metrics","run_lm","flights_data","run_lmodel","flights_file","get_data"],"to":["metrics","metrics","run_lm","run_lm","flights_data","flights_data"],"arrows":["to","to","to","to","to","to"]},"nodesToDataframe":true,"edgesToDataframe":true,"options":{"width":"100%","height":"100%","nodes":{"shape":"dot","physics":false},"manipulation":{"enabled":false},"edges":{"smooth":{"type":"cubicBezier","forceDirection":"horizontal"}},"physics":{"stabilization":false},"interaction":{"zoomSpeed":1},"layout":{"hierarchical":{"enabled":true,"direction":"LR"}}},"groups":null,"width":null,"height":null,"idselection":{"enabled":false,"style":"width: 150px; height: 26px","useLabels":true,"main":"Select by id"},"byselection":{"enabled":false,"style":"width: 150px; height: 26px","multiple":false,"hideColor":"rgba(200,200,200,0.5)","highlight":false},"main":{"text":"","style":"font-family:Georgia, Times New Roman, Times, serif;font-weight:bold;font-size:20px;text-align:center;"},"submain":null,"footer":null,"background":"rgba(0, 0, 0, 0)","highlight":{"enabled":true,"hoverNearest":false,"degree":{"from":1,"to":1},"algorithm":"hierarchical","hideColor":"rgba(200,200,200,0.5)","labelOnly":true},"collapse":{"enabled":true,"fit":false,"resetHighlight":true,"clusterOptions":null,"keepCoord":true,"labelSuffix":"(cluster)"},"legend":{"width":0.2,"useGroups":false,"position":"right","ncol":1,"stepX":100,"stepY":100,"zoom":true,"nodes":{"label":["Outdated","Stem","Function"],"color":["#78B7C5","#899DA4","#899DA4"],"shape":["dot","dot","triangle"]},"nodesToDataframe":true},"tooltipStay":300,"tooltipStyle":"position: fixed;visibility:hidden;padding: 5px;white-space: nowrap;font-family: verdana;font-size:14px;font-color:#000000;background-color: #f5f4ed;-moz-border-radius: 3px;-webkit-border-radius: 3px;border-radius: 3px;border: 1px solid #808074;box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);"},"evals":[],"jsHooks":[]}</script>
 <p>While <code>tar_manifest()</code> provides a dataframe of your
 targets and its meta data e.g. name , R-command that runs it or its
 deployment priority.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tar_manifest</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tar_manifest</span>()</span></code></pre></div>
 <pre><code>## ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.2 ──
 ## ✔ ggplot2 3.3.6      ✔ purrr   0.3.5 
 ## ✔ tibble  3.1.8      ✔ dplyr   1.0.10
@@ -521,13 +550,16 @@ deployment priority.</p>
   </script>
 </div>
 </div>
-<div id="running-the-pipeline-tar_make" class="section level2">
-<h2>Running the pipeline | <code>tar_make()</code></h2>
+<div id="running-the-pipeline-tar_make" class="section level1">
+<h1>Running the pipeline | <code>tar_make()</code></h1>
 <p>So far we have been working on Set-up …<code>tar_make()</code>
 actually runs the pipeline. It creates reproducible process that
 executes the targets in the <code>_targets.R</code> - file in the
 correct order (see the dependency graph).</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tar_make</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>get_data <span class="ot">&lt;-</span> <span class="cf">function</span>(file) {</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">read_csv</span>(file, <span class="at">col_types =</span> <span class="fu">cols</span>())</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tar_make</span>()</span></code></pre></div>
 <pre><code>## ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.2 ──
 ## ✔ ggplot2 3.3.6      ✔ purrr   0.3.5 
 ## ✔ tibble  3.1.8      ✔ dplyr   1.0.10
@@ -543,28 +575,28 @@ correct order (see the dependency graph).</p>
 ##  R package version 5.2.3. https://CRAN.R-project.org/package=stargazer 
 ## 
 ## • start target flights_file
-## • built target flights_file [0.16 seconds]
+## • built target flights_file [0.14 seconds]
 ## • start target flights_data
-## • built target flights_data [1.01 seconds]
+## • built target flights_data [0.98 seconds]
 ## • start target run_lm
-## • built target run_lm [0.22 seconds]
+## • built target run_lm [0.17 seconds]
 ## • start target metrics
-## • built target metrics [12.09 seconds]
-## • end pipeline [22.09 seconds]
+## • built target metrics [11.97 seconds]
+## • end pipeline [21.62 seconds]
 ## Warnmeldungen:
 ## 1: Paket &#39;targets&#39; wurde unter R Version 4.2.2 erstellt 
 ## 2: Paket &#39;tidyverse&#39; wurde unter R Version 4.2.2 erstellt 
 ## 3: Paket &#39;purrr&#39; wurde unter R Version 4.2.2 erstellt 
 ## 4: Paket &#39;modelsummary&#39; wurde unter R Version 4.2.2 erstellt </code></pre>
 </div>
-<div id="accessing-targets-tar_readand-tar_load" class="section level2">
-<h2>Accessing Targets |<code>tar_read()</code>and
-<code>tar_load()</code></h2>
+<div id="accessing-targets-tar_readand-tar_load" class="section level1">
+<h1>Accessing Targets | <code>tar_read()</code>and
+<code>tar_load()</code></h1>
 <p>There are other functions to access the targets and work with them in
 R or to report them.</p>
 <p><code>tar_read()</code> reads a targets return value from, its file.
 For dynamik files it returns their path.</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tar_read</span>(run_lm)</span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tar_read</span>(run_lm)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = y ~ x1, data = data)
@@ -574,8 +606,8 @@ For dynamik files it returns their path.</p>
 ##       -5.90         1.02</code></pre>
 <p><code>tar_read()</code> is useful to assign the target to a new
 object in case you want to work with it in R.</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>linear_model<span class="ot">&lt;-</span><span class="fu">tar_read</span>(run_lm)</span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mod_metrics</span>(linear_model)</span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>linear_model<span class="ot">&lt;-</span><span class="fu">tar_read</span>(run_lm)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mod_metrics</span>(linear_model)</span></code></pre></div>
 <table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
 <thead>
 <tr>
@@ -677,15 +709,15 @@ RMSE
 </table>
 <p><code>tar_load()</code> loads the return values of a given target
 from its storage in _targets/objects.</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tar_load</span>(run_lm)</span></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tar_load</span>(run_lm)</span></code></pre></div>
 </div>
 <div id="checking-for-outdated-targets-tar_outdated"
-class="section level2">
-<h2>Checking for outdated targets |<code>tar_outdated()</code></h2>
+class="section level1">
+<h1>Checking for outdated targets | <code>tar_outdated()</code></h1>
 <p><code>tar_outdated()</code> checks the dependencies and data of
 targets and returns a list of outdated targets. If it returns 0 all our
 targets are up to date.</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tar_outdated</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tar_outdated</span>()</span></code></pre></div>
 <pre><code>## ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.2 ──
 ## ✔ ggplot2 3.3.6      ✔ purrr   0.3.5 
 ## ✔ tibble  3.1.8      ✔ dplyr   1.0.10
@@ -707,44 +739,36 @@ targets are up to date.</p>
 ## 4: Paket &#39;modelsummary&#39; wurde unter R Version 4.2.2 erstellt </code></pre>
 <pre><code>## character(0)</code></pre>
 </div>
-<div id="data-files-as-targets" class="section level2">
-<h2>Data files as targets</h2>
+<div id="data-files-as-targets" class="section level1">
+<h1>Data files as targets</h1>
 <p>In the targets scrip you can also specify a file as a target. In fact
 that is what we did with the <em>NYC-Flights</em> data set with
 <code>format = "file"</code> in <code>tar_target()</code>. This way any
 changes to the data set should trigger the target and all targets that
 depend on it to become outdated. <code>tar_read()</code> returns the
 path for these types of targets [targets with ].</p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tar_read</span>(flights_file)</span></code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tar_read</span>(flights_file)</span></code></pre></div>
 <pre><code>## [1] &quot;Data/nyc_flights.csv&quot;</code></pre>
-<p>#Workshop</p>
-<p>##Questions 1:</p>
+<p>#Questions</p>
 <ol style="list-style-type: decimal">
-<li>What do you see when you open <code>_targets.R</code> using the
-chunk below?</li>
+<li><p>What is the first thing you see when you open the</p></li>
+<li><p>Which is the first target that will run when you caall
+tar_make()?</p></li>
+<li><p>After running this line of code what will happen? if you call
+tar_make()?</p></li>
 </ol>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tar_edit</span>()</span></code></pre></div>
-<pre><code>## • Edit &#39;_targets.R&#39;</code></pre>
-<p>A. A call to <code>source("3-changes/functions.R")</code> to load our
-custom functions. B. A call to <code>tar_option_set()</code> to declare
-the packages the targets need when they run. C. The full pipeline from
-<code>2-pipelines.Rmd</code> at the very bottom of the file. D. All the
-above.</p>
-<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">answer_1_setup</span>(<span class="st">&quot;E&quot;</span>) <span class="co"># Give your own answer here.</span></span></code></pre></div>
-<pre><code>## [33m⚠[39m Please supply a single letter among the choices given.</code></pre>
-<ol start="2" style="list-style-type: decimal">
-<li>Which target runs first when running the pipeline with
-<code>tar_make()</code>.Why?</li>
-</ol>
+</div>
+<div id="updated-upstream" class="section level1">
+<h1>&lt;&lt;&lt;&lt;&lt;&lt;&lt; Updated upstream</h1>
 <p>A. <code>flights_data</code>, because the rest of the targets depend
 on it. B. <code>flights_file</code>, because the rest of the targets
 depend on it. C. <code>flights_data</code>, because it appears first in
 <code>_targets.R</code>. D. <code>flights_file</code>, because it
 appears first in <code>_targets.R</code>.</p>
-<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">answer_1_setup</span>(<span class="st">&quot;E&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">answer_1_setup</span>(<span class="st">&quot;E&quot;</span>)</span></code></pre></div>
 <pre><code>## [33m⚠[39m Please supply a single letter among the choices given.</code></pre>
 <p>Check the chunk below to see:</p>
-<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tar_make</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tar_make</span>()</span></code></pre></div>
 <pre><code>## ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.2 ──
 ## ✔ ggplot2 3.3.6      ✔ purrr   0.3.5 
 ## ✔ tibble  3.1.8      ✔ dplyr   1.0.10
@@ -763,32 +787,39 @@ appears first in <code>_targets.R</code>.</p>
 ## ✔ skip target flights_data
 ## ✔ skip target run_lm
 ## ✔ skip target metrics
-## ✔ skip pipeline [0.26 seconds]
+## ✔ skip pipeline [0.34 seconds]
 ## Warnmeldungen:
 ## 1: Paket &#39;targets&#39; wurde unter R Version 4.2.2 erstellt 
 ## 2: Paket &#39;tidyverse&#39; wurde unter R Version 4.2.2 erstellt 
 ## 3: Paket &#39;purrr&#39; wurde unter R Version 4.2.2 erstellt 
 ## 4: Paket &#39;modelsummary&#39; wurde unter R Version 4.2.2 erstellt </code></pre>
-<ol start="3" style="list-style-type: decimal">
-<li>If you load the <code>run_lm</code> target from the
-<code>_targets/</code> data store using the <code>tar_load()</code>
-function and print it. What do you observe?</li>
-</ol>
-<p>A. A function. B. A fitted lm model. C. A one-row data frame. D. A
-list of objects.</p>
-<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">answer1_inspect</span>(<span class="st">&quot;E&quot;</span>)</span></code></pre></div>
-<pre><code>## [33m⚠[39m Please supply a single letter among the choices given.</code></pre>
-<p>Check the chunk below to see:</p>
-<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tar_load</span>(run_lm)</span>
-<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(run_lm)</span></code></pre></div>
-<pre><code>## 
-## Call:
-## lm(formula = y ~ x1, data = data)
-## 
-## Coefficients:
-## (Intercept)           x1  
-##       -5.90         1.02</code></pre>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>Stashed changes</p>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
 </div>
+<div id="add-to-the-pipeline" class="section level1">
+<h1>Add to the pipeline</h1>
+</div>
+<div id="exercises" class="section level1">
+<h1>Exercises</h1>
+<ol style="list-style-type: decimal">
+<li>Add a plot target (we provide code )</li>
+</ol>
+</div>
+<div id="updated-upstream-1" class="section level1">
+<h1>&lt;&lt;&lt;&lt;&lt;&lt;&lt; Updated upstream</h1>
 </div>
 <div id="exercises-adding-to-the-pipeline" class="section level1">
 <h1>Exercises adding to the pipeline</h1>
@@ -796,18 +827,34 @@ list of objects.</p>
 <li>Add a plot target (we provide code ) and visualize your new target
 dependencies.</li>
 </ol>
-<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tar_edit</span>()</span></code></pre></div>
-<pre><code>## • Edit &#39;_targets.R&#39;</code></pre>
-<ol start="3" style="list-style-type: decimal">
-<li>Delete last row from the CSV file &amp; check which targets are out
-dated . Remove the last row of the dataset file
-<code>data/churn.csv</code>.</li>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tar_edit</span>()</span></code></pre></div>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>Stashed changes</p>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+<ol start="2" style="list-style-type: decimal">
+<li><p>Visualize the target.</p></li>
+<li><p>Delete last row from the CSV file &amp; check which targets are
+out dated . &lt;&lt;&lt;&lt;&lt;&lt;&lt; Updated upstream</p></li>
 </ol>
-<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;Data/nyc_flights.csv&quot;</span> <span class="sc">%&gt;%</span></span>
-<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">read_csv</span>(<span class="at">col_types =</span> <span class="fu">cols</span>()) <span class="sc">%&gt;%</span></span>
-<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="at">n =</span> <span class="fu">nrow</span>(.) <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">write_csv</span>(<span class="st">&quot;Data/nyc_flights.csv&quot;</span>)</span></code></pre></div>
+<p>======= Remove the last row of the dataset file
+<code>data/churn.csv</code>.</p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;Data/nyc_flights.csv&quot;</span> <span class="sc">%&gt;%</span></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">read_csv</span>(<span class="at">col_types =</span> <span class="fu">cols</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="at">n =</span> <span class="fu">nrow</span>(.) <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">write_csv</span>(<span class="st">&quot;Data/nyc_flights.csv&quot;</span>)</span></code></pre></div>
 <p>Run the pipeline again.</p>
 <ol start="4" style="list-style-type: decimal">
 <li>Which targets are outdated? Why?</li>
@@ -823,9 +870,9 @@ the <code>churn_file</code> target returns the value
 <code>tar_target()</code> has <code>format = "file"</code>. D. None of
 them, because <code>Data/nyc_flights.csv</code> is neither a target nor
 a function in the global environment.</p>
-<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">answer1_outdated</span>(<span class="st">&quot;E&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">answer1_outdated</span>(<span class="st">&quot;E&quot;</span>)</span></code></pre></div>
 <pre><code>## [33m⚠[39m Please supply a single letter among the choices given.</code></pre>
-<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tar_outdated</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tar_outdated</span>()</span></code></pre></div>
 <pre><code>## ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.2 ──
 ## ✔ ggplot2 3.3.6      ✔ purrr   0.3.5 
 ## ✔ tibble  3.1.8      ✔ dplyr   1.0.10
@@ -850,9 +897,26 @@ a function in the global environment.</p>
 <li>Open <code>R/1-functions.R</code> and change the plot function,
 specifically change “c = ‘red1’” argument.</li>
 </ol>
-<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">file.edit</span>(<span class="st">&#39;R/1-functions.R&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">file.edit</span>(<span class="st">&#39;R/1-functions.R&#39;</span>)</span></code></pre></div>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>Stashed changes</p>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
 <p>Rerun the pipeline.</p>
-<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tar_make</span>()</span></code></pre></div>
+<p>&lt;&lt;&lt;&lt;&lt;&lt;&lt; Updated upstream 4. Change the plot
+function (Change the dot color and type of dot in the plot.) =======</p>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tar_make</span>()</span></code></pre></div>
 <pre><code>## ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.2 ──
 ## ✔ ggplot2 3.3.6      ✔ purrr   0.3.5 
 ## ✔ tibble  3.1.8      ✔ dplyr   1.0.10
@@ -868,29 +932,46 @@ specifically change “c = ‘red1’” argument.</li>
 ##  R package version 5.2.3. https://CRAN.R-project.org/package=stargazer 
 ## 
 ## • start target flights_file
-## • built target flights_file [0.2 seconds]
+## • built target flights_file [0.12 seconds]
 ## • start target flights_data
-## • built target flights_data [1.06 seconds]
+## • built target flights_data [1 seconds]
 ## • start target run_lm
-## • built target run_lm [0.37 seconds]
+## • built target run_lm [0.15 seconds]
 ## • start target metrics
-## • built target metrics [26.85 seconds]
-## • end pipeline [45.78 seconds]
+## • built target metrics [12.68 seconds]
+## • end pipeline [22.2 seconds]
 ## Warnmeldungen:
 ## 1: Paket &#39;targets&#39; wurde unter R Version 4.2.2 erstellt 
 ## 2: Paket &#39;tidyverse&#39; wurde unter R Version 4.2.2 erstellt 
 ## 3: Paket &#39;purrr&#39; wurde unter R Version 4.2.2 erstellt 
 ## 4: Paket &#39;modelsummary&#39; wurde unter R Version 4.2.2 erstellt </code></pre>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>Stashed changes</p>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
 <p>Which targets ran? Why?</p>
 <p>A. None. No target directly calls <code>plotting</code>. B. None. The
 model definition did not change much. C. <code>run_lm</code>, as
 plotting depends on it . D. Only <code>plotting</code> as no other
 targets depend on it.</p>
+<p>&lt;&lt;&lt;&lt;&lt;&lt;&lt; Updated upstream</p>
+<p>=======</p>
 <ol start="6" style="list-style-type: decimal">
 <li>Make a meaningless change to the modeling in the Functions.RMD
 [delete a white space or add an empty line]</li>
 </ol>
-<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">file.edit</span>(<span class="st">&#39;R/1-functions.R&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">file.edit</span>(<span class="st">&#39;R/1-functions.R&#39;</span>)</span></code></pre></div>
 <p>Which targets will re-run and Why?</p>
 <p>A. <code>run_lm</code>and <code>plotting</code>,as the
 <code>run_lmodel()</code> function changed, which affects all these
@@ -898,9 +979,9 @@ targets. B. None. <code>tar_make()</code> ignores trivial changes like
 comments and white space. C. None. <code>tar_make()</code> ignores all
 changes to functions. D. None. No target directly calls
 <code>run_model()</code>.</p>
-<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">answer1_trivial</span>(<span class="st">&quot;E&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">answer1_trivial</span>(<span class="st">&quot;E&quot;</span>)</span></code></pre></div>
 <pre><code>## [33m⚠[39m Please supply a single letter among the choices given.</code></pre>
-<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tar_outdated</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tar_outdated</span>()</span></code></pre></div>
 <pre><code>## ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.2 ──
 ## ✔ ggplot2 3.3.6      ✔ purrr   0.3.5 
 ## ✔ tibble  3.1.8      ✔ dplyr   1.0.10
@@ -921,6 +1002,21 @@ changes to functions. D. None. No target directly calls
 ## 3: Paket &#39;purrr&#39; wurde unter R Version 4.2.2 erstellt 
 ## 4: Paket &#39;modelsummary&#39; wurde unter R Version 4.2.2 erstellt </code></pre>
 <pre><code>## character(0)</code></pre>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>Stashed changes</p>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
 </div>
 <div id="sources-further-resources" class="section level1">
 <h1>Sources &amp; Further Resources</h1>

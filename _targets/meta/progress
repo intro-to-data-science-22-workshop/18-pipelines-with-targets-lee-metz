@@ -1,10 +1,4 @@
 name|type|parent|branches|progress
-<<<<<<< Updated upstream
-flights_file|stem|flights_file|0|skipped
-flights_data|stem|flights_data|0|skipped
-run_lm|stem|run_lm|0|skipped
-metrics|stem|metrics|0|skipped
-=======
 flights_file|stem|flights_file|0|started
 flights_file|stem|flights_file|0|built
 flights_data|stem|flights_data|0|started
@@ -13,4 +7,3 @@ run_lm|stem|run_lm|0|started
 run_lm|stem|run_lm|0|built
 metrics|stem|metrics|0|started
 metrics|stem|metrics|0|built
->>>>>>> Stashed changes

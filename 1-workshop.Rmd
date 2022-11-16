@@ -106,12 +106,8 @@ source("R/4-answers_to_questions.R")
 source("R/5-quiz.R")
 #getting our data to the file
 write.csv(df,"Data\\nyc_flights.csv", row.names = FALSE)
-<<<<<<< Updated upstream
-tar_destroy() # Start fresh, write 1 on the prompt in your console 
-=======
 
-tar_destroy() # Start fresh.
->>>>>>> Stashed changes
+tar_destroy() # Start fresh, write 1 on the prompt in your console 
 ```
 
 ***
