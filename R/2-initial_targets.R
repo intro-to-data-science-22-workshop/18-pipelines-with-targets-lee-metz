@@ -20,6 +20,7 @@ list(
   #add your Target for the Plot here, dont't forget that the file has end in a list of targets seperated by a comma
 )
 
+##### A suggested solution is 100 lines below
 
 
 
@@ -120,23 +121,4 @@ list(
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# solution <- tar_target(plotting, plot_mod(flights_data$dep_delay, flights_data$arr_delay,run_lm))
+# tar_target(plotting, plot_mod(flights_data$dep_delay, flights_data$arr_delay,run_lm))
