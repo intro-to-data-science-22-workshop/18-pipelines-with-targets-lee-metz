@@ -104,7 +104,7 @@ tar_destroy() # Start fresh.
 ```
 
 ***
-# Building a pipiline of custom functions
+# Information
 
 
 
@@ -166,7 +166,7 @@ tar_edit()
 
 
 
-# Visualizing dependencies  |  `tar_visnetwork()` & `tar_manifest()` 
+## Visualizing dependencies  |  `tar_visnetwork()` & `tar_manifest()` 
 
 The `targets` package detects the relationships between targets automatically using static code analysis.
 
@@ -183,16 +183,10 @@ tar_manifest()
 
 
 
-# Running the pipeline | `tar_make()`
+## Running the pipeline | `tar_make()`
 
 So far we have been working on Set-up ...`tar_make()` actually runs the pipeline. 
 It creates reproducible process that executes the targets in the `_targets.R` - file in the correct order (see the  dependency graph).
-
-```{r}
-get_data <- function(file) {
-  read_csv(file, col_types = cols())
-}
-```
 
 
 ```{r}
@@ -200,15 +194,18 @@ tar_make()
 ```
 
 
-# Accessing Targets |`tar_read()`and  `tar_load()`
+## Accessing Targets |`tar_read()`and  `tar_load()`
 There are other functions to access the targets and work with them in R or to report them. 
 
 
 `tar_read()` reads a targets return value from, its file. For dynamik files it returns their path. 
+
 ```{r}
 tar_read(run_lm)
 ```
+
 `tar_read()` is useful to assign the target to a new object in case you want to work with it in R. 
+
 ```{r}
 linear_model<-tar_read(run_lm)
 mod_metrics(linear_model)
@@ -222,7 +219,7 @@ tar_load(run_lm)
 
 
 
-# Checking for outdated targets |`tar_outdated()`
+## Checking for outdated targets |`tar_outdated()`
 
 `tar_outdated()` checks the dependencies and data of targets and returns a list of outdated targets. 
 If it returns 0 all our targets are up to date. 
@@ -230,7 +227,7 @@ If it returns 0 all our targets are up to date.
 tar_outdated()
 ```
 
-# Data files as targets 
+## Data files as targets 
 
 In the targets scrip you can also specify a file as a target. In fact that is what we did with the *NYC-Flights* data set with `format = "file"` in `tar_target()`. This way any changes to the data set should trigger the target and all targets that depend on it to become outdated. 
 `tar_read()` returns the path for these types of targets [targets with ].
@@ -239,26 +236,69 @@ In the targets scrip you can also specify a file as a target. In fact that is wh
 tar_read(flights_file)
 ```
 
+#Workshop
 
-#Questions 
+##Questions 1: 
 
+1. What do you see when you open `_targets.R` using the chunk below? 
 
-1. What is the first thing you see when you open the 
-
-2. Which is the first target that will run when you caall tar_make()?
-
-
-3. After running this line of code what will happen? if you call tar_make()?  
-
+```{r}
+tar_edit()
+```
 
 
+A. A call to `source("3-changes/functions.R")` to load our custom functions.
+B. A call to `tar_option_set()` to declare the packages the targets need when they run.
+C. The full pipeline from `2-pipelines.Rmd` at the very bottom of the file.
+D. All the above.
+
+```{r}
+answer_1_setup("E") # Give your own answer here.
+```
 
 
 
-# Add to the pipeline 
+2. Which target runs first when running the pipeline with `tar_make()`.Why?
+
+```{r}
+tar_make()
+```
 
 
-# Exercises
+A. `flights_data`, because the rest of the targets depend on it.
+B. ``flights_file``, because the rest of the targets depend on it.
+C. `flights_data`, because it appears first in `_targets.R`.
+D. `flights_file`, because it appears first in `_targets.R`.
+
+```{r}
+answer3_first("E")
+```
+
+3. Load the `run_lm` target from the `_targets/` data store using the `tar_load()` function and print it. What do you observe?
+
+```{r}
+tar_load(best_model)
+print(best_model)
+```
+
+
+
+A. A function.
+B. A trained Keras model.
+C. A one-row data frame.
+D. A recipe object.
+
+```{r}
+answer3_inspect("E")
+```
+
+
+
+
+
+
+#  Exercises adding to the pipeline 
+
 
 1. Add a plot target (we provide code )
 
