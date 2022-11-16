@@ -1,6 +1,7 @@
 
 library(tidyverse)
 library(stargazer)
+library(modelsummary)
 
 
 
@@ -15,11 +16,14 @@ get_data <- function(file) {
 # Specifying a function that takes 1 dependant variable, and up to 3 independent ones 
 run_lmodel <- function(y, x1, x2, x3, data = data, n_var = 1){
   if (n_var == 1){ # 1 independent variable
-    lm(y ~ x1, data = data)
+    out <- lm(y ~ x1, data = data)
+    return(out)
   }else if ( n_var == 2){ # 2 independent variables
-    lm(y ~ x1 + x2, data = data)
+    out <- lm(y ~ x1 + x2, data = data)
+    return(out)
   } else if(n_var == 3){ # 3 independent variables
-    lm(y ~ x1 + x2 + x3, data = data)
+    out <- lm(y ~ x1 + x2 + x3, data = data)
+    return(out)
   } else{ # error message
     print("n_var not specified or out of range, valid values [1-3]")
   }
@@ -42,11 +46,16 @@ plot_mod <- function(x_axis, y_axis,lm = lm, c = 'red1', x_lab = "x-axis", y_lab
 ### `mod_metrics()` function
 
 
-mod_metrics <- function(lm = lm){
-  stargazer(lm, type = "text")
-}
+# mod_metrics <- function(a){
+#   stargazer(a, type = "text")
+# }
 
-
-
-
-
+mod_metrics <- function(lm){
+  modelsummary(list(lm))
+  }
+# 
+# 
+# 
+# b <- lm(df$arr_delay ~ df$dep_delay , data = df)%>% 
+#   coefficients()
+# modelsummary(list(b))

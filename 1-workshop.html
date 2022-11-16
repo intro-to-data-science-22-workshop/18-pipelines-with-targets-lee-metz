@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Targets_Workshop</title>
+
+<script src="1-workshop_files/header-attrs-2.17/header-attrs.js"></script>
+<script src="1-workshop_files/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="1-workshop_files/bootstrap-3.3.5/css/lumen.min.css" rel="stylesheet" />
+<script src="1-workshop_files/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="1-workshop_files/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="1-workshop_files/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="1-workshop_files/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="1-workshop_files/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="1-workshop_files/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="1-workshop_files/navigation-1.1/tabsets.js"></script>
+<link href="1-workshop_files/pagedtable-1.1/css/pagedtable.css" rel="stylesheet" />
+<script src="1-workshop_files/pagedtable-1.1/js/pagedtable.js"></script>
+<script src="1-workshop_files/htmlwidgets-1.5.4/htmlwidgets.js"></script>
+<link href="1-workshop_files/vis-9.1.0/vis-network.min.css" rel="stylesheet" />
+<script src="1-workshop_files/vis-9.1.0/vis-network.min.js"></script>
+<script src="1-workshop_files/visNetwork-binding-2.1.2/visNetwork.js"></script>
+<script src="1-workshop_files/kePrint-0.0.1/kePrint.js"></script>
+<link href="1-workshop_files/lightable-0.0.1/lightable.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+
+
+<style type="text/css">
+  code {
+    white-space: pre;
+  }
+  .sourceCode {
+    overflow: visible;
+  }
+</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  background-color: #f8f8f8; }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ef2929; } /* Alert */
+code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #c4a000; } /* Attribute */
+code span.bn { color: #0000cf; } /* BaseN */
+code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4e9a06; } /* Char */
+code span.cn { color: #000000; } /* Constant */
+code span.co { color: #8f5902; font-style: italic; } /* Comment */
+code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code span.dt { color: #204a87; } /* DataType */
+code span.dv { color: #0000cf; } /* DecVal */
+code span.er { color: #a40000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #0000cf; } /* Float */
+code span.fu { color: #000000; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code span.ot { color: #8f5902; } /* Other */
+code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code span.sc { color: #000000; } /* SpecialChar */
+code span.ss { color: #4e9a06; } /* SpecialString */
+code span.st { color: #4e9a06; } /* String */
+code span.va { color: #000000; } /* Variable */
+code span.vs { color: #4e9a06; } /* VerbatimString */
+code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    var j = 0;
+    while (j < rules.length) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+
+<link rel="stylesheet" href="custom.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Targets_Workshop</h1>
+<h3 class="subtitle">Establishing Pipilines with targets in R</h3>
+
+</div>
+
+
+<hr />
+<div id="introduction" class="section level1">
+<h1>Introduction</h1>
+<p>Targets</p>
+<div id="what-you-will-learn-and-why" class="section level2">
+<h2>What you will learn and why</h2>
+<p>Why you should use Targets:</p>
+<ul>
+<li>maintain a <em>reproducible workflow</em></li>
+<li><em>save costly runtime</em> for tasks that are already up to
+date</li>
+<li><em>provide evidence</em> that output aligns with the code and
+data</li>
+</ul>
+<hr />
+<p>What you will learn in this workshop:</p>
+<ul>
+<li>How to build a pipeline of custom functions using
+<code>tar_script()</code> , <code>tar_edit()</code>and
+<code>tar_target()</code></li>
+<li>How to visualize dependencies using <code>tar_visnetwork()</code>
+&amp; <code>tar_manifest()</code></li>
+<li>How to run your pipeline using <code>tar_make()</code></li>
+<li>How to check for outdated targets using
+<code>tar_outdated()</code></li>
+<li>How to access targets to work with them using
+<code>tar_read()</code>and <code>tar_load()</code></li>
+<li>How to monitor data files for changes by establishing them as
+targets</li>
+</ul>
+<hr />
+</div>
+<div id="a-pipiline-of-functions-the-targets-philosophy"
+class="section level2">
+<h2>A pipiline of functions , the targets Philosophy</h2>
+<p>A pipeline contains tasks to prepare datasets, run models, and
+summarize results for a business deliverable or research paper. The
+methods behind these tasks are user-defined R functions that live in R
+scripts, ideally in a folder called “R/” in the project. The tasks
+themselves are called “targets”, and they run the functions and return R
+objects. The targets package orchestrates the targets and stores the
+output objects to make your pipeline efficient, painless, and
+reproducible. <a
+href="https://github.com/ropensci/targets">Source</a></p>
+<hr />
+</div>
+</div>
+<div id="setup" class="section level1">
+<h1>Setup</h1>
+<p>Before we get started please lrun this chunk to load packages and
+delete any existing targets.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(kableExtra,</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>               tidyverse,</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>               targets,</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>               nycflights13,</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>               modelsummary</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>df<span class="ot">&lt;-</span>nycflights13<span class="sc">::</span>flights</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">&quot;R/1-functions.R&quot;</span>)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(df,<span class="st">&quot;Data</span><span class="sc">\\</span><span class="st">nyc_flights.csv&quot;</span>, <span class="at">row.names =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="fu">tar_destroy</span>() <span class="co"># Start fresh.</span></span></code></pre></div>
+<hr />
+</div>
+<div id="building-a-pipiline-of-custom-functions"
+class="section level1">
+<h1>Building a pipiline of custom functions</h1>
+<div id="functions" class="section level2">
+<h2>Functions</h2>
+<p>The commands of your targets will depend on the functions from
+<code>1-functions.Rmd</code>. For the exercises below, they are in
+<code>R/1-functions.R</code>. Take a quick glance at
+<code>R/functions.R</code> familiarize yourself with the code base.</p>
+</div>
+<div id="start-with-a-small-pipeline." class="section level2">
+<h2>Start with a small pipeline.</h2>
+<p>The first version of the pipeline consists of three <em>targets</em>,
+or steps of computation. Our first targets do the following:</p>
+<ol style="list-style-type: decimal">
+<li>Reproducibly track the NYC flights data file.</li>
+<li>Read in the data from the CSV file.</li>
+<li>Build a simple linear model predicting delays.</li>
+<li>Plot the model</li>
+<li>Report results</li>
+</ol>
+<p>These steps are defined as custom functions in the
+<code>1-functions.Rmd</code></p>
+</div>
+<div id="the-_targets.r-file" class="section level2">
+<h2>The <code>_targets.R</code> file</h2>
+<hr />
+<p>To initiating our targets, we express the computation in a special
+configuration file called <code>_targets.R</code> which has to be at the
+project’s root directory. This file is necessary to:</p>
+<ol style="list-style-type: decimal">
+<li>Load any functions and global objects that the targets depend
+on.</li>
+<li>Set any options, including packages that the targets depend on.</li>
+<li>Declare a list of targets using <code>tar_target()</code>. The
+<code>_targets.R</code> script must always end with a list of target
+objects.</li>
+</ol>
+<p>You would create this file from scratch using the
+<code>tar_script()</code> command.</p>
+<p>We have prepared and initial file for you here which you will edit
+throughout the workshop. Run the following code chunk to put our
+prepared <code>_targets.R</code> file for this chapter in your working
+directory.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">file.copy</span>(<span class="st">&quot;R/2-initial_targets.R&quot;</span>, <span class="st">&quot;_targets.R&quot;</span>, <span class="at">overwrite =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<p>Now, open <code>_targets.R</code> in the RStudio for editing.
+Exercises later in this chapter will ask you to make changes to this
+file.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(targets)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tar_edit</span>()</span></code></pre></div>
+<pre><code>## • Edit &#39;_targets.R&#39;</code></pre>
+</div>
+</div>
+<div id="visualizing-dependencies-tar_visnetwork-tar_manifest"
+class="section level1">
+<h1>Visualizing dependencies | <code>tar_visnetwork()</code> &amp;
+<code>tar_manifest()</code></h1>
+<p>The <code>targets</code> package detects the relationships between
+targets automatically using static code analysis.</p>
+<p><code>tar_visnetwork()</code> includes functions in the dependency
+graph, as well as color-coded status information.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tar_visnetwork</span>()</span></code></pre></div>
+<pre><code>## ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.2 ──
+## ✔ ggplot2 3.4.0      ✔ purrr   0.3.5 
+## ✔ tibble  3.1.8      ✔ dplyr   1.0.10
+## ✔ tidyr   1.2.1      ✔ stringr 1.4.1 
+## ✔ readr   2.1.3      ✔ forcats 0.5.2 
+## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+## ✖ dplyr::filter() masks stats::filter()
+## ✖ dplyr::lag()    masks stats::lag()
+## 
+## Please cite as: 
+## 
+##  Hlavac, Marek (2022). stargazer: Well-Formatted Regression and Summary Statistics Tables.
+##  R package version 5.2.3. https://CRAN.R-project.org/package=stargazer 
+## </code></pre>
+<div id="htmlwidget-b59454e99648abc3a8b7" style="width:672px;height:480px;" class="visNetwork html-widget"></div>
+<script type="application/json" data-for="htmlwidget-b59454e99648abc3a8b7">{"x":{"nodes":{"name":["flights_data","flights_file","metrics","plotting","run_lm","plot_mod","run_lmodel","get_data","mod_metrics"],"type":["stem","stem","stem","stem","stem","function","function","function","function"],"status":["outdated","outdated","outdated","outdated","outdated","outdated","outdated","outdated","outdated"],"seconds":[null,null,null,null,null,null,null,null,null],"bytes":[null,null,null,null,null,null,null,null,null],"branches":[null,null,null,null,null,null,null,null,null],"label":["flights_data","flights_file","metrics","plotting","run_lm","plot_mod","run_lmodel","get_data","mod_metrics"],"color":["#78B7C5","#78B7C5","#78B7C5","#78B7C5","#78B7C5","#78B7C5","#78B7C5","#78B7C5","#78B7C5"],"id":["flights_data","flights_file","metrics","plotting","run_lm","plot_mod","run_lmodel","get_data","mod_metrics"],"level":[2,1,4,4,3,1,1,1,1],"shape":["dot","dot","dot","dot","dot","triangle","triangle","triangle","triangle"]},"edges":{"from":["flights_data","plot_mod","run_lm","mod_metrics","run_lm","flights_data","run_lmodel","flights_file","get_data"],"to":["plotting","plotting","plotting","metrics","metrics","run_lm","run_lm","flights_data","flights_data"],"arrows":["to","to","to","to","to","to","to","to","to"]},"nodesToDataframe":true,"edgesToDataframe":true,"options":{"width":"100%","height":"100%","nodes":{"shape":"dot","physics":false},"manipulation":{"enabled":false},"edges":{"smooth":{"type":"cubicBezier","forceDirection":"horizontal"}},"physics":{"stabilization":false},"interaction":{"zoomSpeed":1},"layout":{"hierarchical":{"enabled":true,"direction":"LR"}}},"groups":null,"width":null,"height":null,"idselection":{"enabled":false,"style":"width: 150px; height: 26px","useLabels":true,"main":"Select by id"},"byselection":{"enabled":false,"style":"width: 150px; height: 26px","multiple":false,"hideColor":"rgba(200,200,200,0.5)","highlight":false},"main":{"text":"","style":"font-family:Georgia, Times New Roman, Times, serif;font-weight:bold;font-size:20px;text-align:center;"},"submain":null,"footer":null,"background":"rgba(0, 0, 0, 0)","highlight":{"enabled":true,"hoverNearest":false,"degree":{"from":1,"to":1},"algorithm":"hierarchical","hideColor":"rgba(200,200,200,0.5)","labelOnly":true},"collapse":{"enabled":true,"fit":false,"resetHighlight":true,"clusterOptions":null,"keepCoord":true,"labelSuffix":"(cluster)"},"legend":{"width":0.2,"useGroups":false,"position":"right","ncol":1,"stepX":100,"stepY":100,"zoom":true,"nodes":{"label":["Outdated","Stem","Function"],"color":["#78B7C5","#899DA4","#899DA4"],"shape":["dot","dot","triangle"]},"nodesToDataframe":true},"tooltipStay":300,"tooltipStyle":"position: fixed;visibility:hidden;padding: 5px;white-space: nowrap;font-family: verdana;font-size:14px;font-color:#000000;background-color: #f5f4ed;-moz-border-radius: 3px;-webkit-border-radius: 3px;border-radius: 3px;border: 1px solid #808074;box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);"},"evals":[],"jsHooks":[]}</script>
+<p>While <code>tar_manifest()</code> provides a dataframe of your
+targets and its meta data e.g. name , R-command that runs it or its
+deployment priority.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tar_manifest</span>()</span></code></pre></div>
+<pre><code>## ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.2 ──
+## ✔ ggplot2 3.4.0      ✔ purrr   0.3.5 
+## ✔ tibble  3.1.8      ✔ dplyr   1.0.10
+## ✔ tidyr   1.2.1      ✔ stringr 1.4.1 
+## ✔ readr   2.1.3      ✔ forcats 0.5.2 
+## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+## ✖ dplyr::filter() masks stats::filter()
+## ✖ dplyr::lag()    masks stats::lag()
+## 
+## Please cite as: 
+## 
+##  Hlavac, Marek (2022). stargazer: Well-Formatted Regression and Summary Statistics Tables.
+##  R package version 5.2.3. https://CRAN.R-project.org/package=stargazer 
+## </code></pre>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["name"],"name":[1],"type":["chr"],"align":["left"]},{"label":["command"],"name":[2],"type":["chr"],"align":["left"]}],"data":[{"1":"flights_file","2":"\"Data/nyc_flights.csv\""},{"1":"flights_data","2":"get_data(flights_file)"},{"1":"run_lm","2":"run_lmodel(flights_data$arr_delay, flights_data$dep_delay, \\n     data = flights_data, n_var = 1)"},{"1":"plotting","2":"plot_mod(flights_data$dep_delay, flights_data$arr_delay, \\n     run_lm)"},{"1":"metrics","2":"mod_metrics(run_lm)"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+<div id="running-the-pipeline-tar_make" class="section level1">
+<h1>Running the pipeline | <code>tar_make()</code></h1>
+<p>So far we have been working on Set-up …<code>tar_make()</code>
+actually runs the pipeline. It creates reproducible process that
+executes the targets in the <code>_targets.R</code> - file in the
+correct order (see the dependency graph).</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>get_data <span class="ot">&lt;-</span> <span class="cf">function</span>(file) {</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">read_csv</span>(file, <span class="at">col_types =</span> <span class="fu">cols</span>())</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tar_make</span>()</span></code></pre></div>
+<pre><code>## ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.2 ──
+## ✔ ggplot2 3.4.0      ✔ purrr   0.3.5 
+## ✔ tibble  3.1.8      ✔ dplyr   1.0.10
+## ✔ tidyr   1.2.1      ✔ stringr 1.4.1 
+## ✔ readr   2.1.3      ✔ forcats 0.5.2 
+## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+## ✖ dplyr::filter() masks stats::filter()
+## ✖ dplyr::lag()    masks stats::lag()
+## 
+## Please cite as: 
+## 
+##  Hlavac, Marek (2022). stargazer: Well-Formatted Regression and Summary Statistics Tables.
+##  R package version 5.2.3. https://CRAN.R-project.org/package=stargazer 
+## 
+## • start target flights_file
+## • built target flights_file [0.26 seconds]
+## • start target flights_data
+## • built target flights_data [1.01 seconds]
+## • start target run_lm
+## • built target run_lm [0.23 seconds]
+## • start target plotting
+## • built target plotting [3.36 seconds]
+## • start target metrics
+## • built target metrics [12.66 seconds]
+## • end pipeline [27.36 seconds]</code></pre>
+</div>
+<div id="accessing-targets-tar_readand-tar_load" class="section level1">
+<h1>Accessing Targets |<code>tar_read()</code>and
+<code>tar_load()</code></h1>
+<p>There are other functions to access the targets and work with them in
+R or to report them.</p>
+<p><code>tar_read()</code> reads a targets return value from, its file.
+For dynamik files it returns their path.</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tar_read</span>(run_lm)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = y ~ x1, data = data)
+## 
+## Coefficients:
+## (Intercept)           x1  
+##       -5.90         1.02</code></pre>
+<p><code>tar_read()</code> is useful to assign the target to a new
+object in case you want to work with it in R.</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>linear_model<span class="ot">&lt;-</span><span class="fu">tar_read</span>(run_lm)</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mod_metrics</span>(linear_model)</span></code></pre></div>
+<table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:center;">
+Model 1
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+(Intercept)
+</td>
+<td style="text-align:center;">
+−5.899
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:center;">
+(0.033)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+x1
+</td>
+<td style="text-align:center;">
+1.019
+</td>
+</tr>
+<tr>
+<td style="text-align:left;box-shadow: 0px 1px">
+</td>
+<td style="text-align:center;box-shadow: 0px 1px">
+(0.0008)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Num.Obs.
+</td>
+<td style="text-align:center;">
+327346
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+R2
+</td>
+<td style="text-align:center;">
+0.837
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+R2 Adj.
+</td>
+<td style="text-align:center;">
+0.837
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+AIC
+</td>
+<td style="text-align:center;">
+2822272.7
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+BIC
+</td>
+<td style="text-align:center;">
+2822304.8
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Log.Lik.
+</td>
+<td style="text-align:center;">
+−1411133.361
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+RMSE
+</td>
+<td style="text-align:center;">
+18.03
+</td>
+</tr>
+</tbody>
+</table>
+<p><code>tar_load()</code> loads the return values of a given target
+from its storage in _targets/objects.</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tar_load</span>(run_lm)</span></code></pre></div>
+</div>
+<div id="checking-for-outdated-targets-tar_outdated"
+class="section level1">
+<h1>Checking for outdated targets |<code>tar_outdated()</code></h1>
+<p><code>tar_outdated()</code> checks the dependencies and data of
+targets and returns a list of outdated targets. If it returns 0 all our
+targets are up to date.</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tar_outdated</span>()</span></code></pre></div>
+<pre><code>## ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.2 ──
+## ✔ ggplot2 3.4.0      ✔ purrr   0.3.5 
+## ✔ tibble  3.1.8      ✔ dplyr   1.0.10
+## ✔ tidyr   1.2.1      ✔ stringr 1.4.1 
+## ✔ readr   2.1.3      ✔ forcats 0.5.2 
+## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+## ✖ dplyr::filter() masks stats::filter()
+## ✖ dplyr::lag()    masks stats::lag()
+## 
+## Please cite as: 
+## 
+##  Hlavac, Marek (2022). stargazer: Well-Formatted Regression and Summary Statistics Tables.
+##  R package version 5.2.3. https://CRAN.R-project.org/package=stargazer 
+## </code></pre>
+<pre><code>## character(0)</code></pre>
+</div>
+<div id="data-files-as-targets" class="section level1">
+<h1>Data files as targets</h1>
+<p>In the targets scrip you can also specify a file as a target. In fact
+that is what we did with the <em>NYC-Flights</em> data set with
+<code>format = "file"</code> in <code>tar_target()</code>. This way any
+changes to the data set should trigger the target and all targets that
+depend on it to become outdated. <code>tar_read()</code> returns the
+path for these types of targets [targets with ].</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tar_read</span>(flights_file)</span></code></pre></div>
+<pre><code>## [1] &quot;Data/nyc_flights.csv&quot;</code></pre>
+<p>#Questions</p>
+<ol style="list-style-type: decimal">
+<li><p>What is the first thing you see when you open the</p></li>
+<li><p>Which is the first target that will run when you caall
+tar_make()?</p></li>
+<li><p>After running this line of code what will happen? if you call
+tar_make()?</p></li>
+</ol>
+</div>
+<div id="add-to-the-pipeline" class="section level1">
+<h1>Add to the pipeline</h1>
+</div>
+<div id="exercises" class="section level1">
+<h1>Exercises</h1>
+<ol style="list-style-type: decimal">
+<li><p>Add a plot target (we provide code )</p></li>
+<li><p>Visualize the target.</p></li>
+<li><p>Delete last row from the CSV file &amp; check which targets are
+out dated .</p></li>
+<li><p>Change the plot function (Change the dot color and type of dot in
+the plot.)</p></li>
+<li><p>Make a meaningless change to the Functions.RMD [delete a white
+space or and empty line]</p></li>
+</ol>
+</div>
+<div id="sources-further-resources" class="section level1">
+<h1>Sources &amp; Further Resources</h1>
+<p>This tutorial drew heavily on the Materials provided by <em>Will
+Landau</em> the creator of Targets.</p>
+<p><em>Helpful resources:</em></p>
+<ul>
+<li><a href="https://books.ropensci.org/targets/">Targets
+Manual</a></li>
+<li><a href="https://github.com/wlandau/targets-tutorial">Targets
+Tutorial</a></li>
+<li><a
+href="https://www.youtube.com/watch?v=pbc6NX1n01Q&amp;list=PLvgdJdJDL-APJqHy5CXs6m4N7hUVp5rb4">Targets
+Video Series</a></li>
+</ul>
+<p><em>Styling and Structure</em> of the RMD have drawn on resources
+produced by Tom Arendt and Lisa Oswald produced for the Intro to Data
+Science Labs in 2021/22.</p>
+</div>
+
+&nbsp;
+<hr />
+<p style="text-align: center;">A work by Maria Jose Lee & Fabian Metz </a></p>
+<p style="text-align: center;"><span style="color: #808080;"><em>Prepared for Intro to Data Science, taught by Simon Munzert</em></span></p>
+<p style="text-align: center;"><span style="color: #808080;"><em><a href="https://www.hertie-school.org/en/">Hertie School, Berlin</em></span></p>
+
+<!-- Add icon library -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" >
+
+<!-- Add font awesome icons -->
+<p style="text-align: center;">
+    <a href="https://github.com/intro-to-data-science-21"  <i class="fab fa-github"></i><a>
+</p>
+
+&nbsp;
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

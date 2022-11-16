@@ -1,6 +1,10 @@
 name|type|data|command|depend|seed|path|time|size|bytes|format|repository|iteration|parent|children|seconds|warnings|error
-flights_file|stem||33f2dd2904a08656|ef46db3751d8e999|1154360369|Data/nyc-flights.csv|t19311.8749753873s||0|file|local|vector|||||_paths_ 31mmissing files Datanycflights.csv39m
+flights_data|stem|2fc8603ce06f04f3|01132702f3798586|bd4b526031bd0abe|-9455667||t19311.9316575684s|eea3288632b969c8|7242324|rds|local|vector|||1.01||
+flights_file|stem|576672a804fc18ca|8f8d7c09f4b9567a|ef46db3751d8e999|1154360369|Data/nyc_flights.csv|t19311.9314535063s|b330670507ce7e6b|33743073|file|local|vector|||0.26||
 get_data|function|2d6039203ac586f4|||||||||||||||
-mod_metrics|function|6ab80aa4b24e713e|||||||||||||||
+metrics|stem|4c0f9c7b7d3b1244|de5deaeac0ccc034|802091ca0a1acff5|1850210733||t19311.9319251242s|bd5d7237884ef5a2|443|rds|local|vector|||12.66||
+mod_metrics|function|dc6df37bd006c11c|||||||||||||||
 plot_mod|function|17c8fe109ec73529|||||||||||||||
-run_lmodel|function|64219c7eb7fce6f0|||||||||||||||
+plotting|stem|f9aa85c76a3c0433|b0296be63fb31218|717f06effef8bf9b|-1087520843||t19311.9317781622s|6efc4bfe9d27bd5a|46|rds|local|vector|||3.36||
+run_lm|stem|2a220c8fde9817ca|8a2ee6c4c5e67397|732f5430a0adcb31|49321853||t19311.9317378694s|09be207858e9b939|22257518|rds|local|vector|||0.23||
+run_lmodel|function|d0a70c3ff7ec7113|||||||||||||||

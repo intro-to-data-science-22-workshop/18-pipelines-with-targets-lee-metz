@@ -94,10 +94,11 @@ pacman::p_load(kableExtra,
                tidyverse,
                targets,
                nycflights13,
-               stargazer
+               modelsummary
 )
 df<-nycflights13::flights
 
+source("R/1-functions.R")
 write.csv(df,"Data\\nyc_flights.csv", row.names = FALSE)
 tar_destroy() # Start fresh.
 ```
@@ -186,6 +187,13 @@ tar_manifest()
 
 So far we have been working on Set-up ...`tar_make()` actually runs the pipeline. 
 It creates reproducible process that executes the targets in the `_targets.R` - file in the correct order (see the  dependency graph).
+
+```{r}
+get_data <- function(file) {
+  read_csv(file, col_types = cols())
+}
+```
+
 
 ```{r}
 tar_make()
