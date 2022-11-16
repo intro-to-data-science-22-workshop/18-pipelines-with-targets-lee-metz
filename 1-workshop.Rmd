@@ -16,7 +16,7 @@ output:
       after_body: footer.html
 ---
 
-```{r setup, include=FALSE}
+```{r setup, inude=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 options(digits=2)
 
@@ -72,7 +72,7 @@ What you will learn in this workshop:
 
 
 ***
-## A pipiline of functions , the targets Philosophy
+## A pipiline of functions , the Targets' Philosophy
 
 A pipeline contains tasks to prepare datasets, run models, and summarize results for a business deliverable or research paper. The methods behind these tasks are user-defined R functions that live in R scripts, ideally in a folder called "R/" in the project. The tasks themselves are called “targets”, and they run the functions and return R objects. The targets package orchestrates the targets and stores the output objects to make your pipeline efficient, painless, and reproducible.
 [Source](https://github.com/ropensci/targets)
@@ -100,21 +100,21 @@ df<-nycflights13::flights
 
 source("R/1-functions.R")
 write.csv(df,"Data\\nyc_flights.csv", row.names = FALSE)
-tar_destroy() # Start fresh.
+tar_destroy() # Start fresh, write 1 on the prompt in your console 
 ```
 
 ***
-# Information
+# Building a pipiline of custom functions
 
 
 
 
-## Functions
+### Functions
 
 The commands of your targets will depend on the functions from `1-functions.Rmd`. For the exercises below, they are in `R/1-functions.R`. 
 Take a quick glance at `R/functions.R` familiarize yourself with the code base. 
 
-## Start with a small pipeline.
+### Start with a small pipeline.
 
 The first version of the pipeline consists of three *targets*, or steps of computation. Our first targets do the following:
 
@@ -127,7 +127,7 @@ The first version of the pipeline consists of three *targets*, or steps of compu
 
 These steps are defined as custom functions in the `1-functions.Rmd`
 
-## The `_targets.R` file
+### The `_targets.R` file
 ***
 
 To initiating our targets, we express the computation in a special configuration file called `_targets.R` which has to be at the project's root directory. 
@@ -166,7 +166,7 @@ tar_edit()
 
 
 
-## Visualizing dependencies  |  `tar_visnetwork()` & `tar_manifest()` 
+# Visualizing dependencies  |  `tar_visnetwork()` & `tar_manifest()` 
 
 The `targets` package detects the relationships between targets automatically using static code analysis.
 
@@ -183,10 +183,16 @@ tar_manifest()
 
 
 
-## Running the pipeline | `tar_make()`
+# Running the pipeline | `tar_make()`
 
 So far we have been working on Set-up ...`tar_make()` actually runs the pipeline. 
 It creates reproducible process that executes the targets in the `_targets.R` - file in the correct order (see the  dependency graph).
+
+```{r}
+get_data <- function(file) {
+  read_csv(file, col_types = cols())
+}
+```
 
 
 ```{r}
@@ -194,18 +200,15 @@ tar_make()
 ```
 
 
-## Accessing Targets |`tar_read()`and  `tar_load()`
+# Accessing Targets | `tar_read()`and  `tar_load()`
 There are other functions to access the targets and work with them in R or to report them. 
 
 
 `tar_read()` reads a targets return value from, its file. For dynamik files it returns their path. 
-
 ```{r}
 tar_read(run_lm)
 ```
-
 `tar_read()` is useful to assign the target to a new object in case you want to work with it in R. 
-
 ```{r}
 linear_model<-tar_read(run_lm)
 mod_metrics(linear_model)
@@ -219,7 +222,7 @@ tar_load(run_lm)
 
 
 
-## Checking for outdated targets |`tar_outdated()`
+# Checking for outdated targets | `tar_outdated()`
 
 `tar_outdated()` checks the dependencies and data of targets and returns a list of outdated targets. 
 If it returns 0 all our targets are up to date. 
@@ -227,7 +230,7 @@ If it returns 0 all our targets are up to date.
 tar_outdated()
 ```
 
-## Data files as targets 
+# Data files as targets 
 
 In the targets scrip you can also specify a file as a target. In fact that is what we did with the *NYC-Flights* data set with `format = "file"` in `tar_target()`. This way any changes to the data set should trigger the target and all targets that depend on it to become outdated. 
 `tar_read()` returns the path for these types of targets [targets with ].
@@ -236,118 +239,43 @@ In the targets scrip you can also specify a file as a target. In fact that is wh
 tar_read(flights_file)
 ```
 
-#Workshop
 
-##Questions 1: 
-
-1. What do you see when you open `_targets.R` using the chunk below? 
-
-```{r}
-tar_edit()
-```
+#Questions 
 
 
-A. A call to `source("3-changes/functions.R")` to load our custom functions.
-B. A call to `tar_option_set()` to declare the packages the targets need when they run.
-C. The full pipeline from `2-pipelines.Rmd` at the very bottom of the file.
-D. All the above.
+1. What is the first thing you see when you open the 
 
-```{r}
-answer_1_setup("E") # Give your own answer here.
-```
+2. Which is the first target that will run when you caall tar_make()?
+
+
+3. After running this line of code what will happen? if you call tar_make()?  
 
 
 
-2. Which target runs first when running the pipeline with `tar_make()`.Why?
 
 
-A. `flights_data`, because the rest of the targets depend on it.
-B. ``flights_file``, because the rest of the targets depend on it.
-C. `flights_data`, because it appears first in `_targets.R`.
-D. `flights_file`, because it appears first in `_targets.R`.
 
-```{r}
-answer1_first("E")
-```
-
-Check the chunk below to see:
-```{r}
-tar_make()
-```
+# Add to the pipeline 
 
 
-3. If you load the `run_lm` target from the `_targets/` data store using the `tar_load()` function and print it. What do you observe?
+# Exercises
 
-A. A function.
-B. A fitted lm model.
-C. A one-row data frame.
-D. A list of objects.
-
-```{r}
-answer1_inspect("E")
-```
-
-Check the chunk below to see:
-```{r}
-tar_load(run_lm)
-print(run_lm)
-```
-
-#  Exercises adding to the pipeline 
+1. Add a plot target (we provide code )
 
 
-1. Add a plot target (we provide code ) and visualize your new target dependencies. 
-
-
-```{r}
-tar_edit()
-```
-
+2. Visualize the target.
 
 
 3. Delete last row from the CSV file & check which targets are out dated .
-Remove the last row of the dataset file `data/churn.csv`.
-
-```{r, message = FALSE}
-library(tidyverse)
-"Data/nyc_flights.csv" %>%
-  read_csv(col_types = cols()) %>%
-  head(n = nrow(.) - 1) %>%
-  write_csv("Data/nyc_flights.csv")
-```
-
-Run the pipeline again.
 
 
-Which targets are outdated? Why?
 
-A. All of them. `targets` notices it has been a while since you ran the pipeline.
-B. All of them. The data file changed, and `targets` automatically knows `data/churn.csv` is a data file.
-C. All of them. The data file changed, and the pipeline is configured to automatically track `data/churn.csv`. The pipeline tracks the data file because the `churn_file` target returns the value `"data/churn.csv"` and the call to `tar_target()` has `format = "file"`.
-D. None of them, because `data/churn.csv` is neither a target nor a function in the global environment.
-
-```{r}
-tar_outdated()
-```
-
-4. Change the plot function, specifically change "c = 'red1'" argument. 
-
-```{r}
-file.edit('R/1-functions.R')
-```
-
-
+4. Change the plot function (Change the dot color and type of dot in the plot.) 
 
 
 5. Make a meaningless change to the Functions.RMD [delete a white space or and empty line]
 
-```{r}
-file.edit('R/1-functions.R')
-```
 
-```{r}
-tar_outdated()
-```
 
 
 

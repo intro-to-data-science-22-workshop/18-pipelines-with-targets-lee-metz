@@ -1,0 +1,8 @@
+name|type|data|command|depend|seed|path|time|size|bytes|format|repository|iteration|parent|children|seconds|warnings|error
+flights_data|stem|2fc8603ce06f04f3|01132702f3798586|bd4b526031bd0abe|-9455667||t19312.5451057452s|eea3288632b969c8|7242324|rds|local|vector|||1.13||
+flights_file|stem|576672a804fc18ca|8f8d7c09f4b9567a|ef46db3751d8e999|1154360369|Data/nyc_flights.csv|t19312.5448260273s|b330670507ce7e6b|33743073|file|local|vector|||0.44||
+get_data|function|2d6039203ac586f4|||||||||||||||
+metrics|stem|4c0f9c7b7d3b1244|de5deaeac0ccc034|eedbe78b3c292c6e|1850210733||t19312.5453652597s|bd5d7237884ef5a2|443|rds|local|vector|||15.17||
+mod_metrics|function|dc6df37bd006c11c|||||||||||||||
+run_lm|stem|91b1b379aaa272da|8a2ee6c4c5e67397|05eb407334ec8be2|49321853||t19312.5451876091s|9433c21acc3f242f|15231259|rds|local|vector|||0.26||
+run_lmodel|function|64219c7eb7fce6f0|||||||||||||||

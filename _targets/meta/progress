@@ -1,3 +1,5 @@
 name|type|parent|branches|progress
-flights_file|stem|flights_file|0|started
-flights_file|stem|flights_file|0|errored
+flights_file|stem|flights_file|0|skipped
+flights_data|stem|flights_data|0|skipped
+run_lm|stem|run_lm|0|skipped
+metrics|stem|metrics|0|skipped
