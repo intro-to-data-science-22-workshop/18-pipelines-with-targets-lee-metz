@@ -100,7 +100,7 @@ df<-nycflights13::flights
 
 source("R/1-functions.R")
 write.csv(df,"Data\\nyc_flights.csv", row.names = FALSE)
-tar_destroy() # Start fresh.
+tar_destroy() # Start fresh, write 1 on the prompt in your console 
 ```
 
 ***
