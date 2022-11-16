@@ -1,4 +1,10 @@
 name|value
+<<<<<<< Updated upstream
 pid|15408
 version_r|4.2.2
 version_targets|0.14.0.9000
+=======
+pid|21636
+version_r|4.2.1
+version_targets|0.14.0
+>>>>>>> Stashed changes

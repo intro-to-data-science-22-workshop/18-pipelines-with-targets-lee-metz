@@ -98,9 +98,20 @@ pacman::p_load(kableExtra,
 )
 df<-nycflights13::flights
 
+#loading custom functions for the analysis
 source("R/1-functions.R")
+
+#loading scripts necessary for the quiz in workshop
+source("R/4-answers_to_questions.R")
+source("R/5-quiz.R")
+#getting our data to the file
 write.csv(df,"Data\\nyc_flights.csv", row.names = FALSE)
+<<<<<<< Updated upstream
 tar_destroy() # Start fresh, write 1 on the prompt in your console 
+=======
+
+tar_destroy() # Start fresh.
+>>>>>>> Stashed changes
 ```
 
 ***
@@ -254,6 +265,22 @@ tar_read(flights_file)
 
 
 
+<<<<<<< Updated upstream
+=======
+A. `flights_data`, because the rest of the targets depend on it.
+B. ``flights_file``, because the rest of the targets depend on it.
+C. `flights_data`, because it appears first in `_targets.R`.
+D. `flights_file`, because it appears first in `_targets.R`.
+
+```{r}
+answer_1_setup("E")
+```
+
+Check the chunk below to see:
+```{r}
+tar_make()
+```
+>>>>>>> Stashed changes
 
 # Add to the pipeline 
 
@@ -262,20 +289,107 @@ tar_read(flights_file)
 
 1. Add a plot target (we provide code )
 
+<<<<<<< Updated upstream
+=======
+#  Exercises adding to the pipeline 
+
+
+1. Add a plot target (we provide code ) and visualize your new target dependencies. 
+
+
+```{r eval=FALSE}
+tar_edit()
+```
+>>>>>>> Stashed changes
 
 2. Visualize the target.
 
 
 3. Delete last row from the CSV file & check which targets are out dated .
+<<<<<<< Updated upstream
+
+=======
+Remove the last row of the dataset file `data/churn.csv`.
+
+```{r, message = FALSE}
+library(tidyverse)
+"Data/nyc_flights.csv" %>%
+  read_csv(col_types = cols()) %>%
+  head(n = nrow(.) - 1) %>%
+  write_csv("Data/nyc_flights.csv")
+```
+
+Run the pipeline again.
 
 
+4. Which targets are outdated? Why?
 
+A. All of them. `targets` notices it has been a while since you ran the pipeline.
+B. All of them. The data file changed, and `targets` automatically knows `Data/nyc_flights.csv` is a data file.
+C. All of them. The data file changed, and the pipeline is configured to automatically track `data/churn.csv`. The pipeline tracks the data file because the `churn_file` target returns the value `"Data/nyc_flights.csv"` and the call to `tar_target()` has `format = "file"`.
+D. None of them, because `Data/nyc_flights.csv` is neither a target nor a function in the global environment.
+
+```{r}
+answer1_outdated("E")
+```
+
+```{r}
+tar_outdated()
+```
+
+5. Open `R/1-functions.R` and change the plot function, specifically change "c = 'red1'" argument. 
+
+
+```{r eval=FALSE}
+file.edit('R/1-functions.R')
+```
+>>>>>>> Stashed changes
+
+Rerun the pipeline.
+
+<<<<<<< Updated upstream
 4. Change the plot function (Change the dot color and type of dot in the plot.) 
+=======
+```{r }
+tar_make()
+```
+>>>>>>> Stashed changes
+
+Which targets ran? Why?
+
+A. None. No target directly calls `plotting`.
+B. None. The model definition did not change much.
+C. `run_lm`, as plotting depends on it .
+D. Only `plotting` as no other targets depend on it.
+
+<<<<<<< Updated upstream
+
+=======
 
 
-5. Make a meaningless change to the Functions.RMD [delete a white space or and empty line]
+6. Make a meaningless change to the modeling in the Functions.RMD [delete a white space or add an empty line]
+
+```{r eval=FALSE}
+file.edit('R/1-functions.R')
+```
+
+Which targets will re-run and  Why?
+
+A. `run_lm`and `plotting`,as the `run_lmodel()` function changed, which affects all these targets.
+B. None. `tar_make()` ignores trivial changes like comments and white space. 
+C. None. `tar_make()` ignores all changes to functions.
+D. None. No target directly calls `run_model()`.
+
+```{r}
+answer1_trivial("E")
+```
 
 
+
+```{r}
+tar_outdated()
+```
+>>>>>>> Stashed changes
 
 
 
