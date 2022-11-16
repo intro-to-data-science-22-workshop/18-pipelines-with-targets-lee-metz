@@ -16,7 +16,7 @@ output:
       after_body: footer.html
 ---
 
-```{r setup, inude=FALSE}
+```{r setup,  include = FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 options(digits=2)
 
@@ -49,9 +49,8 @@ colorise <- function(x, color) {
 ***
 
 # Introduction
-Targets 
 
-## What you will learn and why
+### What you will learn and why
 Why you should use Targets:
 
 * maintain a *reproducible workflow* 
@@ -72,7 +71,7 @@ What you will learn in this workshop:
 
 
 ***
-## A pipiline of functions , the Targets' Philosophy
+### A pipeline of functions, the Targets' Philosophy
 
 A pipeline contains tasks to prepare datasets, run models, and summarize results for a business deliverable or research paper. The methods behind these tasks are user-defined R functions that live in R scripts, ideally in a folder called "R/" in the project. The tasks themselves are called “targets”, and they run the functions and return R objects. The targets package orchestrates the targets and stores the output objects to make your pipeline efficient, painless, and reproducible.
 [Source](https://github.com/ropensci/targets)
@@ -87,7 +86,7 @@ A pipeline contains tasks to prepare datasets, run models, and summarize results
 ***
 # Setup
 
-Before we get started please lrun this chunk to load packages and delete any existing targets. 
+Before we get started please run this chunk to load packages and delete any existing targets. 
 
 ```{r message=FALSE, comment=F}
 pacman::p_load(kableExtra,
@@ -173,18 +172,18 @@ tar_edit()
 
 
 
-# Visualizing dependencies  |  `tar_visnetwork()` & `tar_manifest()` 
+### Visualizing dependencies  |  `tar_visnetwork()` & `tar_manifest()` 
 
 The `targets` package detects the relationships between targets automatically using static code analysis.
 
 `tar_visnetwork()` includes functions in the dependency graph, as well as color-coded status information.
-```{r}
+```{r, message = FALSE, warning=FALSE}
 tar_visnetwork()
 
 ```
 
 While `tar_manifest()` provides a dataframe of your targets and its meta data e.g. name , R-command that runs it or its deployment priority.
-```{r}
+```{r, message = FALSE}
 tar_manifest()
 ```
 
